@@ -1,0 +1,23 @@
+{
+  "dependencies": {
+    "@hexlet/chat-server": "^1.1.6"
+  },
+  "name": "frontend-project-12",
+  "description": "[![Actions Status](https://github.com/Californium251/frontend-project-12/workflows/hexlet-check/badge.svg)](https://github.com/Californium251/frontend-project-12/actions)",
+  "version": "1.0.0",
+  "main": "src/index.js",
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Californium251/frontend-project-12.git"
+  },
+  "author": "Maxim Kurepov",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Californium251/frontend-project-12/issues"
+  },
+  "homepage": "https://github.com/Californium251/frontend-project-12#readme"
+}
