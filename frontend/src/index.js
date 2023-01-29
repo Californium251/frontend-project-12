@@ -1,14 +1,39 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
-import App from './App';
+import {
+  createBrowserRouter,
+  RouterProvider,
+} from 'react-router-dom';
+// eslint-disable-next-line import/no-extraneous-dependencies
+import { Provider } from 'react-redux';
 import reportWebVitals from './reportWebVitals';
+import Root from './routes/root';
+import ErrorPage from './error-page';
+import Login from './routes/login';
+import store from './slices/index';
+
+const router = createBrowserRouter([
+  {
+    path: '/',
+    element: <Root />,
+    errorElement: <ErrorPage />,
+  },
+  {
+    path: '/login',
+    element: (
+      <Login />
+    ),
+  },
+]);
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <App />
-  </React.StrictMode>
+    <Provider store={store}>
+      <RouterProvider router={router} />
+    </Provider>
+  </React.StrictMode>,
 );
 
 // If you want to start measuring performance in your app, pass a function
