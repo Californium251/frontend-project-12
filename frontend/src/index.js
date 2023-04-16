@@ -1,38 +1,26 @@
+/* eslint-disable react/jsx-filename-extension */
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import {
-  createBrowserRouter,
-  RouterProvider,
+  BrowserRouter,
+  Routes,
+  Route,
 } from 'react-router-dom';
-// eslint-disable-next-line import/no-extraneous-dependencies
-import { Provider } from 'react-redux';
+import App from './App';
+import { AuthProvider } from './context/AuthProvider';
 import reportWebVitals from './reportWebVitals';
-import Root from './routes/root';
-import ErrorPage from './error-page';
-import Login from './routes/login';
-import store from './slices/index';
-
-const router = createBrowserRouter([
-  {
-    path: '/',
-    element: <Root />,
-    errorElement: <ErrorPage />,
-  },
-  {
-    path: '/login',
-    element: (
-      <Login />
-    ),
-  },
-]);
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <Provider store={store}>
-      <RouterProvider router={router} />
-    </Provider>
+    <BrowserRouter>
+      <AuthProvider>
+        <Routes>
+          <Route path="/*" element={<App />} />
+        </Routes>
+      </AuthProvider>
+    </BrowserRouter>
   </React.StrictMode>,
 );
 
