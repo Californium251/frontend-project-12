@@ -1,8 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import axios from 'axios';
+import { useSelector, useDispatch } from 'react-redux';
+import { addChannels } from '../slices/channelSlice';
 
 function Chat() {
-  const [channels, setChannels] = useState([]);
+  const channels = useSelector((state) => state.channels);
+  const dispatch = useDispatch();
   useEffect(() => {
     const getChats = async () => {
       const token = window.localStorage.getItem('token');
@@ -12,7 +15,7 @@ function Chat() {
         },
       };
       const res = await axios.get('/api/v1/data', config);
-      setChannels(res.data.channels);
+      dispatch(addChannels(['some data']));
     };
     getChats();
   });
