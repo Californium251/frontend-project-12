@@ -15,13 +15,13 @@ function Chat() {
         },
       };
       const res = await axios.get('/api/v1/data', config);
-      dispatch(addChannels(['some data']));
+      dispatch(addChannels(res.data.channels));
     };
     getChats();
   });
   return (
     <>
-      {channels.map((channel) => <div key={channel.id}>{channel.name}</div>)}
+      {channels.value.map((channel) => <div key={channel.id}>{channel.name}</div>)}
     </>
   );
 }
