@@ -13,7 +13,12 @@ import { AuthProvider } from './context/AuthProvider';
 import reportWebVitals from './reportWebVitals';
 import store from './slices/index';
 
+document.querySelector('html').classList.add('h-100');
+document.querySelector('body').classList.add('h-100');
+document.getElementById('root').classList.add('h-100');
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
+
 root.render(
   <React.StrictMode>
     <BrowserRouter>

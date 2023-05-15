@@ -4,6 +4,7 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
   value: [],
+  activeId: 1,
 };
 
 const channelSclice = createSlice({
@@ -13,9 +14,12 @@ const channelSclice = createSlice({
     addChannels: (state, { payload }) => {
       state.value = payload;
     },
+    makeActive: (state, { payload }) => {
+      state.activeId = payload;
+    },
   },
 });
 
-export const { addChannels } = channelSclice.actions;
+export const { addChannels, makeActive } = channelSclice.actions;
 
 export default channelSclice.reducer;

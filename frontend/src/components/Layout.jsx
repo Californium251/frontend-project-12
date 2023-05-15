@@ -3,7 +3,7 @@ import React from 'react';
 
 function Layout() {
   return (
-    <main className="App">
+    <main className="App d-flex flex-column h-100">
       <Outlet />
     </main>
   );
