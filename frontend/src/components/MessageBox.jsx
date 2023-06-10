@@ -4,29 +4,32 @@ import Message from './Message';
 import { newMessage } from '../slices/messageSlice';
 import Socket from './Sokcet';
 
-const messageToText = (message) => Object.keys(message)
-  .filter((key) => !Number.isNaN(+key))
-  .sort((a, b) => +a - +b)
-  .map((key) => message[key])
-  .join('');
-
 function MessageBox() {
   const messages = useSelector((state) => state.messages);
+  const activeChannelId = useSelector((state) => state.channels.activeId);
   const dispatch = useDispatch();
   useEffect(() => {
-    Socket.emit('newMessage', 'message');
-    Socket.on('newMessage', (message) => {
+    Socket.on('newMessage', ({
+      id,
+      text,
+      username,
+      channelId,
+    }) => {
       dispatch(newMessage({
-        id: message.id,
-        text: messageToText(message),
+        id,
+        text,
+        username,
+        channelId,
       }));
     });
   }, []);
   return (
     <div id="message-box" className="chat-messages overflow-auto px-5">
-      {Object.entries(messages).map(([id, text]) => (
-        <Message username="userhardcoded" text={text} key={id} />
-      ))}
+      {Object.entries(messages)
+        .filter(([id, message]) => message.channelId === activeChannelId)
+        .map(([id, { text, username }]) => (
+          <Message username={username} text={text} key={id} />
+        ))}
     </div>
   );
 }

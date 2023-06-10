@@ -9,8 +9,13 @@ const messageSlice = createSlice({
   initialState,
   reducers: {
     newMessage: (state, { payload }) => {
-      const { id, text } = payload;
-      state[id] = text;
+      const {
+        id,
+        text,
+        username,
+        channelId,
+      } = payload;
+      state[id] = { text, username, channelId };
     },
   },
 });
