@@ -3,24 +3,21 @@ import {
   Formik,
   Form,
   Field,
-  useFormik,
+  useFormikContext,
 } from 'formik';
 import { useSelector } from 'react-redux';
 import Socket from './Socket';
 
 function SendMessageForm() {
   const channelId = useSelector((state) => state.channels.activeId);
-  const formik = useFormik();
   let activeChannelId;
   useEffect(() => {
-    console.log(formik);
     activeChannelId = channelId;
   }, [channelId]);
   return (
     <Formik
       initialValues={{ text: '', username: 'admin', channelId: activeChannelId }}
       onSubmit={(values, { resetForm }) => {
-        console.log(values);
         Socket.emit('newMessage', { ...values });
         resetForm();
       }}
