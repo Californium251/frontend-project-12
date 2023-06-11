@@ -6,6 +6,7 @@ import 'bootstrap';
 import Channel from './Channel';
 import MessageBox from './MessageBox';
 import SendMessageForm from './SendMessageForm';
+import ChatHeader from './ChatHeader';
 
 function Chat() {
   const channels = useSelector((state) => state.channels);
@@ -52,16 +53,9 @@ function Chat() {
           </div>
           <div className="col p-0 h-100">
             <div className="d-flex flex-column h-100">
-              <div className="bg-light mb-4 p-3 shadow-sm small">
-                <p className="m-0">
-                  <b># general</b>
-                </p>
-                <span className="text-muted">0 сообщений</span>
-              </div>
+              <ChatHeader />
               <MessageBox />
-              <div className="mt-auto px-5 py-3">
-                <SendMessageForm />
-              </div>
+              <SendMessageForm />
             </div>
           </div>
         </div>

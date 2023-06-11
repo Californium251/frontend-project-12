@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import Message from './Message';
 import { newMessage } from '../slices/messageSlice';
-import Socket from './Sokcet';
+import Socket from './Socket';
 
 function MessageBox() {
   const messages = useSelector((state) => state.messages);
@@ -26,7 +26,7 @@ function MessageBox() {
   return (
     <div id="message-box" className="chat-messages overflow-auto px-5">
       {Object.entries(messages)
-        .filter(([id, message]) => message.channelId === activeChannelId)
+        .filter(([, message]) => message.channelId === activeChannelId)
         .map(([id, { text, username }]) => (
           <Message username={username} text={text} key={id} />
         ))}
