@@ -17,9 +17,20 @@ const messageSlice = createSlice({
       } = payload;
       state[id] = { text, username, channelId };
     },
+    addMessages: (state, { payload }) => {
+      payload.reduce((res, el) => {
+        const {
+          id, text, username, channelId,
+        } = el;
+        res[id] = {
+          id, text, username, channelId,
+        };
+        return res;
+      }, state);
+    },
   },
 });
 
-export const { newMessage } = messageSlice.actions;
+export const { newMessage, addMessages } = messageSlice.actions;
 
 export default messageSlice.reducer;

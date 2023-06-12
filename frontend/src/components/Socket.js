@@ -1,5 +1,8 @@
 import { io } from 'socket.io-client';
 
-const Socket = io('http://localhost:3000/');
+const token = window.localStorage.getItem('token');
+const Socket = io('http://localhost:3000/', {
+  auth: { token },
+});
 
 export default Socket;

@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import axios from 'axios';
 import { useSelector, useDispatch } from 'react-redux';
 import { addChannels } from '../slices/channelSlice';
+import { addMessages } from '../slices/messageSlice';
 import 'bootstrap';
 import Channel from './Channel';
 import MessageBox from './MessageBox';
@@ -21,6 +22,7 @@ function Chat() {
       };
       const res = await axios.get('/api/v1/data', config);
       dispatch(addChannels(res.data.channels));
+      dispatch(addMessages(res.data.messages));
     };
     getChats();
   }, []);
