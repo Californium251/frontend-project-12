@@ -5,7 +5,7 @@ function ChatHeader() {
   const channels = useSelector((state) => state.channels);
   const channelMessages = useSelector(({ messages }) => Object.entries(messages)
     .filter(([, value]) => value.channelId === channels.activeId));
-  const activeChannelName = channels.value.length > 0 ? channels.value[channels.activeId - 1].name : '';
+  const activeChannelName = Object.keys(channels.value).length > 0 ? channels.value[channels.activeId].name : '';
   return (
     <div className="bg-light mb-4 p-3 shadow-sm small">
       <p className="m-0">

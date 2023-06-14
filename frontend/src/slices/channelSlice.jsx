@@ -3,8 +3,8 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-  value: [],
-  activeId: 1,
+  value: {},
+  activeId: null,
 };
 
 const channelSclice = createSlice({
@@ -12,14 +12,20 @@ const channelSclice = createSlice({
   initialState,
   reducers: {
     addChannels: (state, { payload }) => {
-      state.value = payload;
+      payload.forEach(({ id, name, removable }) => {
+        state.value[id] = { name, removable };
+      });
     },
     makeActive: (state, { payload }) => {
       state.activeId = payload;
     },
+    newChannel: (state, { payload }) => {
+      const { id, name, removable } = payload;
+      state.value[id] = { name, removable };
+    },
   },
 });
 
-export const { addChannels, makeActive } = channelSclice.actions;
+export const { addChannels, makeActive, newChannel } = channelSclice.actions;
 
 export default channelSclice.reducer;
