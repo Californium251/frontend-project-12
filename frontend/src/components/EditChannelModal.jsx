@@ -2,6 +2,7 @@
 import React, { useEffect, useRef } from 'react';
 import { useDispatch } from 'react-redux';
 import { editChannel } from '../slices/modalsSlice';
+import { Dropdown } from 'react-bootstrap';
 
 function EditChannelModal() {
   const dispatch = useDispatch();
