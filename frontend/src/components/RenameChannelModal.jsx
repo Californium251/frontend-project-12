@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import React from 'react';
+import React, { useRef } from 'react';
 import { Modal, FormGroup, Button } from 'react-bootstrap';
 import {
   Formik, Form, ErrorMessage, Field,
@@ -9,15 +9,19 @@ import { useDispatch, useSelector } from 'react-redux';
 import { hideModal } from '../slices/modalsSlice';
 import Socket from './Socket';
 import { channelNameValidation } from './validations';
+import { setChannelToBeChanged } from '../slices/channelSlice';
 
-function NewChannelModal() {
+function RenameChannelModal() {
   const dispatch = useDispatch();
+  const id = useSelector((state) => state.modals.renameChannel);
+  const initialName = useSelector((state) => state.channels.value[id].name);
   const onHide = () => {
-    dispatch(hideModal('newChannel'));
+    dispatch(hideModal('renameChannel'));
   };
   const channelNames = useSelector(({ channels }) => Object
     .values(channels.value)
     .map(({ name }) => name));
+  const nameField = useRef(null);
   return (
     <Modal show>
       <Modal.Header closeButton onHide={onHide}>
@@ -25,20 +29,26 @@ function NewChannelModal() {
       </Modal.Header>
       <Modal.Body>
         <Formik
-          initialValues={{ name: '' }}
+          initialValues={{ name: initialName }}
           validationSchema={channelNameValidation(channelNames)}
-          onSubmit={({ name }) => {
-            Socket.emit('newChannel', {
-              name,
+          onSubmit={(values) => {
+            const newVals = {
+              id,
+              name: values.name,
               removable: true,
+            };
+            Socket.emit('renameChannel', newVals, (res) => {
+              if (res.status === 'ok') {
+                dispatch(setChannelToBeChanged(id));
+                dispatch(hideModal('renameChannel'));
+              }
             });
-            dispatch(hideModal('newChannel'));
           }}
         >
-          <Form id="newChannelForm">
+          <Form id="renameChannelForm">
             <FormGroup>
-              <Field name="name" type="text" className="mb-2 form-control" />
-              <label htmlFor="name" className="visually-hidden">Имя канала</label>
+              <Field name="name" type="text" className="mb-2 form-control" ref={nameField} />
+              <label htmlFor="name" className="visually-hidden">Переименовать канал</label>
               <ErrorMessage name="name">{(msg) => <div>{msg}</div>}</ErrorMessage>
             </FormGroup>
           </Form>
@@ -46,10 +56,10 @@ function NewChannelModal() {
       </Modal.Body>
       <Modal.Footer>
         <Button type="button" variant="secondary" onClick={onHide}>Отменить</Button>
-        <Button type="submit" form="newChannelForm">Создать</Button>
+        <Button type="submit" form="renameChannelForm">Переименовать</Button>
       </Modal.Footer>
     </Modal>
   );
 }
 
-export default NewChannelModal;
+export default RenameChannelModal;

@@ -11,6 +11,8 @@ import ChatHeader from './ChatHeader';
 import NewChannelModal from './NewChannelModal';
 import AddChannelButton from './AddChannelButton';
 import Socket from './Socket';
+import RemoveChannelModal from './RemoveChannelModal';
+import RenameChannelModal from './RenameChannelModal';
 
 function Chat() {
   const modals = useSelector((state) => state.modals);
@@ -62,6 +64,8 @@ function Chat() {
         </div>
       </div>
       {modals.newChannel ? <NewChannelModal /> : null}
+      {modals.removeChannel ? <RemoveChannelModal /> : null}
+      {modals.renameChannel ? <RenameChannelModal /> : null}
     </>
   );
 }

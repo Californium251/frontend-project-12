@@ -5,15 +5,41 @@ import { useDispatch, useSelector } from 'react-redux';
 import {
   ButtonGroup, Dropdown, Nav,
 } from 'react-bootstrap';
-import { makeActive } from '../slices/channelSlice';
+import {
+  makeActive, removeChannel, renameChannel, setChannelToBeChanged,
+} from '../slices/channelSlice';
+import { showRemoveChannel, showRenameChannel } from '../slices/modalsSlice';
+import Socket from './Socket';
 
 function Channels() {
   const dispatch = useDispatch();
   const channels = useSelector((state) => state.channels.value);
   const activeId = useSelector((state) => state.channels.activeId);
+  const channelToBeChanged = useSelector((state) => state.channels.channelToBeChanged);
   const onClick = (channelId) => () => {
     dispatch(makeActive(channelId));
   };
+  const onDelClick = (id) => () => {
+    dispatch(showRemoveChannel(id));
+  };
+  const onRenameClick = (id) => () => {
+    dispatch(showRenameChannel(id));
+  };
+  Socket.on('removeChannel', ({ id }) => {
+    if (+channelToBeChanged === +activeId) {
+      dispatch(makeActive(1));
+    }
+    if (+channelToBeChanged === +id) {
+      dispatch(removeChannel(id));
+      dispatch(setChannelToBeChanged(null));
+    }
+  });
+  Socket.on('renameChannel', ({ id, name }) => {
+    if (+channelToBeChanged === +id) {
+      dispatch(renameChannel({ id, name }));
+      dispatch(setChannelToBeChanged(null));
+    }
+  });
   return (
     <Nav variant="pills" align="start">
       {Object.entries(channels).map(([id, { name, removable }]) => (
@@ -28,8 +54,8 @@ function Channels() {
                 </Nav.Link>
                 <Dropdown.Toggle variant="light" split />
                 <Dropdown.Menu>
-                  <Dropdown.Item href="#">Удалить</Dropdown.Item>
-                  <Dropdown.Item href="#">Переименовать</Dropdown.Item>
+                  <Dropdown.Item onClick={onDelClick(id)} href="#">Удалить</Dropdown.Item>
+                  <Dropdown.Item onClick={onRenameClick(id)} href="#">Переименовать</Dropdown.Item>
                 </Dropdown.Menu>
               </Dropdown>
             )
