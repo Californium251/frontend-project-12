@@ -1,6 +1,10 @@
 import React, { useEffect } from 'react';
 import axios from 'axios';
 import { useSelector, useDispatch } from 'react-redux';
+import {
+  Container, Row, Col,
+} from 'react-bootstrap';
+import { useTranslation } from 'react-i18next';
 import { addChannels, makeActive, newChannel } from '../slices/channelSlice';
 import { addMessages } from '../slices/messageSlice';
 import 'bootstrap';
@@ -13,8 +17,10 @@ import AddChannelButton from './AddChannelButton';
 import Socket from './Socket';
 import RemoveChannelModal from './RemoveChannelModal';
 import RenameChannelModal from './RenameChannelModal';
+import AppHeader from './AppHeader';
 
 function Chat() {
+  const { t } = useTranslation();
   const modals = useSelector((state) => state.modals);
   const dispatch = useDispatch();
   useEffect(() => {
@@ -39,30 +45,25 @@ function Chat() {
   });
   return (
     <>
-      <nav className="shadow-sm navbar navbar-expand-lg navbar-light bg-white">
-        <div className="container">
-          <a className="navbar-brand" href="/">Chat</a>
-          <button type="button" className="btn btn-primary">Выйти</button>
-        </div>
-      </nav>
-      <div className="container h-100 my-4 overflow-hidden rounded shadow">
-        <div className="row h-100 bg-white flex-md-row">
-          <div className="col-4 col-md-2 border-end px-0 bg-light flex-column h-100 d-flex">
+      <AppHeader />
+      <Container bg="light" className="h-100 my-4 overflow-hidden rounded shadow">
+        <Row bg="light" className="h-100 flex-md-row">
+          <Col xs="4" md="2" bg="light" variant="light" className="border-end px-0 flex-column h-100 d-flex">
             <div className="d-flex mt-1 justify-content-between mb-2 pe-2 p-4">
-              <b>Каналы</b>
+              <b>{t('channels')}</b>
               <AddChannelButton />
             </div>
             <Channels />
-          </div>
-          <div className="col p-0 h-100">
+          </Col>
+          <Col className="p-0 h-100">
             <div className="d-flex flex-column h-100">
               <ChatHeader />
               <MessageBox />
               <SendMessageForm />
             </div>
-          </div>
-        </div>
-      </div>
+          </Col>
+        </Row>
+      </Container>
       {modals.newChannel ? <NewChannelModal /> : null}
       {modals.removeChannel ? <RemoveChannelModal /> : null}
       {modals.renameChannel ? <RenameChannelModal /> : null}

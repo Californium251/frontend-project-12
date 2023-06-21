@@ -6,12 +6,14 @@ import {
 } from 'formik';
 import 'bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 import { hideModal } from '../slices/modalsSlice';
 import Socket from './Socket';
 import { channelNameValidation } from './validations';
 import { setChannelToBeChanged } from '../slices/channelSlice';
 
 function RenameChannelModal() {
+  const { t } = useTranslation();
   const dispatch = useDispatch();
   const id = useSelector((state) => state.modals.renameChannel);
   const initialName = useSelector((state) => state.channels.value[id].name);
@@ -25,7 +27,7 @@ function RenameChannelModal() {
   return (
     <Modal show>
       <Modal.Header closeButton onHide={onHide}>
-        <Modal.Title>Добавить канал</Modal.Title>
+        <Modal.Title>{t('renameChannelHeader')}</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <Formik
@@ -48,15 +50,15 @@ function RenameChannelModal() {
           <Form id="renameChannelForm">
             <FormGroup>
               <Field name="name" type="text" className="mb-2 form-control" ref={nameField} />
-              <label htmlFor="name" className="visually-hidden">Переименовать канал</label>
+              <label htmlFor="name" className="visually-hidden">{t('renameChannelLabel')}</label>
               <ErrorMessage name="name">{(msg) => <div>{msg}</div>}</ErrorMessage>
             </FormGroup>
           </Form>
         </Formik>
       </Modal.Body>
       <Modal.Footer>
-        <Button type="button" variant="secondary" onClick={onHide}>Отменить</Button>
-        <Button type="submit" form="renameChannelForm">Переименовать</Button>
+        <Button type="button" variant="secondary" onClick={onHide}>{t('cancel')}</Button>
+        <Button type="submit" form="renameChannelForm">{t('rename')}</Button>
       </Modal.Footer>
     </Modal>
   );

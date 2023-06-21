@@ -8,11 +8,13 @@ import {
 } from 'formik';
 import 'bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 import { hideModal } from '../slices/modalsSlice';
 import Socket from './Socket';
 import { setChannelToBeChanged } from '../slices/channelSlice';
 
 function RemoveChannelModal() {
+  const { t } = useTranslation();
   const dispatch = useDispatch();
   const onHide = () => {
     dispatch(hideModal('removeChannel'));
@@ -21,7 +23,7 @@ function RemoveChannelModal() {
   return (
     <Modal show>
       <Modal.Header closeButton onHide={onHide}>
-        <Modal.Title>Удалить канал</Modal.Title>
+        <Modal.Title>{t('removeChannelHeader')}</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <Formik
@@ -37,14 +39,14 @@ function RemoveChannelModal() {
         >
           <Form id="removeChannelForm">
             <FormGroup>
-              <p className="lead">Уверены?</p>
+              <p className="lead">{t('areYouSure')}</p>
             </FormGroup>
           </Form>
         </Formik>
       </Modal.Body>
       <Modal.Footer>
-        <Button variant="secondary" onClick={onHide}>Отменить</Button>
-        <Button variant="danger" type="submit" form="removeChannelForm">Удалить</Button>
+        <Button variant="secondary" onClick={onHide}>{t('cancel')}</Button>
+        <Button variant="danger" type="submit" form="removeChannelForm">{t('remove')}</Button>
       </Modal.Footer>
     </Modal>
   );

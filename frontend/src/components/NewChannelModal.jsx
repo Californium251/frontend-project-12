@@ -6,11 +6,13 @@ import {
 } from 'formik';
 import 'bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 import { hideModal } from '../slices/modalsSlice';
 import Socket from './Socket';
 import { channelNameValidation } from './validations';
 
 function NewChannelModal() {
+  const { t } = useTranslation();
   const dispatch = useDispatch();
   const onHide = () => {
     dispatch(hideModal('newChannel'));
@@ -21,7 +23,7 @@ function NewChannelModal() {
   return (
     <Modal show>
       <Modal.Header closeButton onHide={onHide}>
-        <Modal.Title>Добавить канал</Modal.Title>
+        <Modal.Title>{t('newChannel')}</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <Formik
@@ -38,15 +40,15 @@ function NewChannelModal() {
           <Form id="newChannelForm">
             <FormGroup>
               <Field name="name" type="text" className="mb-2 form-control" />
-              <label htmlFor="name" className="visually-hidden">Имя канала</label>
+              <label htmlFor="name" className="visually-hidden">{t('channelName')}</label>
               <ErrorMessage name="name">{(msg) => <div>{msg}</div>}</ErrorMessage>
             </FormGroup>
           </Form>
         </Formik>
       </Modal.Body>
       <Modal.Footer>
-        <Button type="button" variant="secondary" onClick={onHide}>Отменить</Button>
-        <Button type="submit" form="newChannelForm">Создать</Button>
+        <Button type="button" variant="secondary" onClick={onHide}>{t('cancel')}</Button>
+        <Button type="submit" form="newChannelForm">{t('create')}</Button>
       </Modal.Footer>
     </Modal>
   );

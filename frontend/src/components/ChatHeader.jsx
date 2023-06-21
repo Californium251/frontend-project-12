@@ -1,7 +1,9 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 
 function ChatHeader() {
+  const { t } = useTranslation();
   const channels = useSelector((state) => state.channels);
   const channelMessages = useSelector(({ messages }) => Object.entries(messages)
     .filter(([, value]) => value.channelId === channels.activeId));
@@ -18,7 +20,7 @@ function ChatHeader() {
       <span className="text-muted">
         {channelMessages.length}
         {' '}
-        сообщений
+        {t('messages')}
       </span>
     </div>
   );

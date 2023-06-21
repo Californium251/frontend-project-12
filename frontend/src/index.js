@@ -12,6 +12,7 @@ import App from './App';
 import { AuthProvider } from './context/AuthProvider';
 import reportWebVitals from './reportWebVitals';
 import store from './slices/index';
+import './locales/index';
 
 document.querySelector('html').classList.add('h-100');
 document.querySelector('body').classList.add('h-100');

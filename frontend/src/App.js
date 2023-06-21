@@ -7,12 +7,14 @@ import Login from './components/Login';
 import RequireAuth from './components/RequireAuth';
 import Root from './components/Root';
 import Chat from './components/Chat';
+import SignUp from './components/SignUp';
 
 function App() {
   return (
     <Routes>
       <Route path="/" element={<Layout />}>
         <Route path="login" element={<Login />} />
+        <Route path="signup" element={<SignUp />} />
         <Route path="/" element={<Root />} />
       </Route>
       <Route element={<RequireAuth />}>
