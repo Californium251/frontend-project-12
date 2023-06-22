@@ -20,7 +20,7 @@ function ChatHeader() {
       <span className="text-muted">
         {channelMessages.length}
         {' '}
-        {t('messages')}
+        {t('messages', { count: channelMessages.length })}
       </span>
     </div>
   );

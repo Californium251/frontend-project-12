@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import axios from 'axios';
 import { useSelector, useDispatch } from 'react-redux';
+import { RouterProvider } from 'react-router-dom';
 import {
   Container, Row, Col,
 } from 'react-bootstrap';
@@ -44,7 +45,7 @@ function Chat() {
     }
   });
   return (
-    <>
+    <RouterProvider>
       <AppHeader />
       <Container bg="light" className="h-100 my-4 overflow-hidden rounded shadow">
         <Row bg="light" className="h-100 flex-md-row">
@@ -67,7 +68,7 @@ function Chat() {
       {modals.newChannel ? <NewChannelModal /> : null}
       {modals.removeChannel ? <RemoveChannelModal /> : null}
       {modals.renameChannel ? <RenameChannelModal /> : null}
-    </>
+    </RouterProvider>
   );
 }
 

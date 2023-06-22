@@ -3,10 +3,8 @@ import './App.css';
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 import Layout from './components/Layout';
-import Login from './components/Login';
-import RequireAuth from './components/RequireAuth';
-import Root from './components/Root';
 import Chat from './components/Chat';
+import Login from './components/Login';
 import SignUp from './components/SignUp';
 
 function App() {
@@ -15,10 +13,7 @@ function App() {
       <Route path="/" element={<Layout />}>
         <Route path="login" element={<Login />} />
         <Route path="signup" element={<SignUp />} />
-        <Route path="/" element={<Root />} />
-      </Route>
-      <Route element={<RequireAuth />}>
-        <Route path="chat" element={<Chat />} />
+        <Route path="/" element={<Chat />} />
       </Route>
     </Routes>
   );

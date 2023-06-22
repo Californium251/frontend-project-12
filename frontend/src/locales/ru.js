@@ -2,7 +2,12 @@ export default {
   translation: {
     header: 'Чат Максима Курепова',
     channels: 'Каналы',
-    messages: 'сообщений',
+    messages_zero: 'сообщений',
+    messages_one: 'сообщение',
+    messages_two: 'сообщения',
+    messages_few: 'сообщения',
+    messages_many: 'сообщений',
+    messages_other: 'сообщений',
     appName: 'Hexlet чат',
     signout: 'Выйти',
     removeChannel: 'Удалить',
