@@ -9,7 +9,9 @@ import './locales/index';
 import App from './App';
 import store from './slices/index';
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+const rootEl = document.getElementById('root');
+rootEl.classList.add('vh-100');
+const root = ReactDOM.createRoot(rootEl);
 
 root.render(
   <React.StrictMode>
