@@ -43,7 +43,7 @@ function Channels() {
     }
   });
   return (
-    <Nav variant="pills" align="start">
+    <Nav variant="pills" align="start" as="ul">
       {Object.entries(channels).map(([id, { name, removable }]) => (
         <Nav.Item key={id} className={`w-100 ${+id === +activeId ? 'btn-secondary' : ''}`}>
           {removable

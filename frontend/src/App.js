@@ -11,7 +11,7 @@ function App() {
     <Routes>
       <Route path="login" element={<Login />} />
       <Route path="signup" element={<SignUp />} />
-      <Route path="/" element={<Chat />} />
+      <Route path="/" element={<Chat className="vh-100" />} />
     </Routes>
   );
 }

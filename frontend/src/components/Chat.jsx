@@ -44,10 +44,10 @@ function Chat() {
     }
   });
   return (
-    <>
+    <Container fluid className="vh-100">
       <AppHeader />
       <Container bg="light" className="h-100 my-4 overflow-hidden rounded shadow">
-        <Row bg="light" className="h-100 flex-md-row">
+        <Row bg="light" className="h-100 flexmd-row">
           <Col xs="4" md="2" bg="light" variant="light" className="border-end px-0 flex-column h-100 d-flex">
             <div className="d-flex mt-1 justify-content-between mb-2 pe-2 p-4">
               <b>{t('channels')}</b>
@@ -55,7 +55,7 @@ function Chat() {
             </div>
             <Channels />
           </Col>
-          <Col className="p-0 h-100">
+          <Col className="p-0">
             <div className="d-flex flex-column h-100">
               <ChatHeader />
               <MessageBox />
@@ -67,7 +67,7 @@ function Chat() {
       {modals.newChannel ? <NewChannelModal /> : null}
       {modals.removeChannel ? <RemoveChannelModal /> : null}
       {modals.renameChannel ? <RenameChannelModal /> : null}
-    </>
+    </Container>
   );
 }
 
