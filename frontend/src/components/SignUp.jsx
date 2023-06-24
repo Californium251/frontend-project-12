@@ -42,7 +42,7 @@ function SignUp() {
     },
   });
   return (
-    <>
+    <Container fluid className="d-flex flex-column vh-100">
       <AppHeader />
       <Container fluid className="h-100">
         <Row className="justify-content-md-center align-content-center h-100">
@@ -103,7 +103,7 @@ function SignUp() {
           </Col>
         </Row>
       </Container>
-    </>
+    </Container>
   );
 }
 

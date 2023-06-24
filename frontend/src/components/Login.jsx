@@ -42,7 +42,7 @@ function Login() {
     },
   });
   return (
-    <>
+    <Container fluid className="d-flex flex-column vh-100">
       <AppHeader />
       <Container fluid className="h-100">
         <Row className="justify-content-md-center align-content-center h-100">
@@ -86,7 +86,7 @@ function Login() {
                   </Col>
                 </Row>
               </Card.Body>
-              <Card.Footer className="p-4">
+              <Card.Footer className="p-4 text-center">
                 <span>{t('noAccount')}</span>
                 {' '}
                 <a href="/signup">{t('signupButton')}</a>
@@ -95,7 +95,7 @@ function Login() {
           </Col>
         </Row>
       </Container>
-    </>
+    </Container>
   );
 }
 

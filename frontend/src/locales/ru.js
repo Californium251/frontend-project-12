@@ -28,7 +28,7 @@ export default {
     renameChannelLabel: 'Имя канала',
     rename: 'Переименовать',
     send: 'Отправить',
-    signUpFormHeader: 'Зарегистрироваться',
+    signUpFormHeader: 'Регистрация',
     passwordConfirmation: 'Подтвердите пароль',
   },
 };

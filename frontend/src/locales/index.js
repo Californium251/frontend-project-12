@@ -7,7 +7,7 @@ import en from './en';
 i18next
   .use(initReactI18next)
   .init({
-    lng: 'en',
+    lng: 'ru',
     debug: true,
     resources: {
       en, ru,

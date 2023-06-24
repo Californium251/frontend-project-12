@@ -45,7 +45,7 @@ function Channels() {
   return (
     <Nav variant="pills" align="start" as="ul">
       {Object.entries(channels).map(([id, { name, removable }]) => (
-        <Nav.Item key={id} className={`w-100 ${+id === +activeId ? 'btn-secondary' : ''}`}>
+        <Nav.Item key={id} as="li" className={`w-100 ${+id === +activeId ? 'btn-secondary' : ''}`}>
           {removable
             ? (
               <Dropdown as={ButtonGroup} variant="light" className="w-100">

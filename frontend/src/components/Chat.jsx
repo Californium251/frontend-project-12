@@ -44,7 +44,7 @@ function Chat() {
     }
   });
   return (
-    <Container fluid className="vh-100">
+    <Container fluid className="vh-100 d-flex flex-column">
       <AppHeader />
       <Container bg="light" className="h-100 my-4 overflow-hidden rounded shadow">
         <Row bg="light" className="h-100 flexmd-row">
