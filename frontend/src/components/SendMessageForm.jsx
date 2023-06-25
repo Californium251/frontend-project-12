@@ -11,16 +11,16 @@ import Socket from './Socket';
 function SendMessageForm() {
   const channelId = useSelector((state) => state.channels.activeId);
   const { t } = useTranslation();
-  const username = useSelector((state) => state.user.name);
+  const username = window.localStorage.getItem('username');
   return (
     <Formik
       initialValues={{
         text: '',
-        username,
       }}
       onSubmit={(values, { resetForm }) => {
         Socket.emit('newMessage', {
           ...values,
+          username,
           channelId,
         });
         resetForm();

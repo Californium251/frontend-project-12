@@ -32,6 +32,7 @@ function Login() {
         const res = await axios.post('/api/v1/login', values);
         if (res.status === 200) {
           window.localStorage.setItem('token', res.data.token);
+          window.localStorage.setItem('username', values.username);
           dispatch(setName(values.username));
           dispatch(loginError(null));
           navigate('/');

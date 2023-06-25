@@ -29,9 +29,10 @@ function SignUp() {
     validationSchema: signupValidation,
     onSubmit: async (values) => {
       try {
-        const res = await axios.post('/api/v1/signup', { username: values.password, password: values.password });
+        const res = await axios.post('/api/v1/signup', { username: values.username, password: values.password });
         if (res.status === 201) {
           window.localStorage.setItem('token', res.data.token);
+          window.localStorage.setItem('username', values.username);
           dispatch(signUpError(null));
           dispatch(setName(values.username));
           navigate('/');

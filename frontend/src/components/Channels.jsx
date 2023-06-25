@@ -6,6 +6,7 @@ import {
   ButtonGroup, Dropdown, Nav,
 } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
+import { toast } from 'react-toastify';
 import {
   makeActive, removeChannel, renameChannel, setChannelToBeChanged,
 } from '../slices/channelSlice';
@@ -27,6 +28,9 @@ function Channels() {
   const onRenameClick = (id) => () => {
     dispatch(showRenameChannel(id));
   };
+  const newMessageNotification = (message) => {
+    toast(message);
+  };
   Socket.on('removeChannel', ({ id }) => {
     if (+channelToBeChanged === +activeId) {
       dispatch(makeActive(1));
@@ -34,6 +38,7 @@ function Channels() {
     if (+channelToBeChanged === +id) {
       dispatch(removeChannel(id));
       dispatch(setChannelToBeChanged(null));
+      newMessageNotification('removed');
     }
   });
   Socket.on('renameChannel', ({ id, name }) => {
