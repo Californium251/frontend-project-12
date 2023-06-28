@@ -8,16 +8,20 @@ import reportWebVitals from './reportWebVitals';
 import './locales/index';
 import App from './App';
 import store from './slices/index';
+import SocketProvider from './context/SocketProvider';
+import Socket from './components/Socket';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
 root.render(
   <React.StrictMode>
-    <Provider store={store}>
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
-    </Provider>
+    <SocketProvider.Provider value={Socket}>
+      <Provider store={store}>
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
+      </Provider>
+    </SocketProvider.Provider>
   </React.StrictMode>,
 );
 

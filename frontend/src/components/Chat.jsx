@@ -1,12 +1,11 @@
 import React, { useEffect } from 'react';
 import axios from 'axios';
 import { useSelector, useDispatch } from 'react-redux';
-
 import {
   Container, Row, Col,
 } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
-import { addChannels, makeActive, newChannel } from '../slices/channelSlice';
+import { addChannels, makeActive } from '../slices/channelSlice';
 import { addMessages } from '../slices/messageSlice';
 import 'bootstrap';
 import Channels from './Channels';
@@ -15,7 +14,6 @@ import SendMessageForm from './SendMessageForm';
 import ChatHeader from './ChatHeader';
 import NewChannelModal from './NewChannelModal';
 import AddChannelButton from './AddChannelButton';
-import Socket from './Socket';
 import RemoveChannelModal from './RemoveChannelModal';
 import RenameChannelModal from './RenameChannelModal';
 import AppHeader from './AppHeader';
@@ -39,11 +37,6 @@ function Chat() {
     };
     getChats();
   }, []);
-  Socket.on('newChannel', (socket) => {
-    if (socket.name) {
-      dispatch(newChannel(socket));
-    }
-  });
   return (
     <Container fluid className="vh-100 d-flex flex-column">
       <AppHeader />

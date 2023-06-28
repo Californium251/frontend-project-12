@@ -6,19 +6,14 @@ import {
   ButtonGroup, Dropdown, Nav,
 } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
-import { toast } from 'react-toastify';
-import {
-  makeActive, removeChannel, renameChannel, setChannelToBeChanged,
-} from '../slices/channelSlice';
+import { makeActive } from '../slices/channelSlice';
 import { showRemoveChannel, showRenameChannel } from '../slices/modalsSlice';
-import Socket from './Socket';
 
 function Channels() {
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const channels = useSelector((state) => state.channels.value);
   const activeId = useSelector((state) => state.channels.activeId);
-  const channelToBeChanged = useSelector((state) => state.channels.channelToBeChanged);
   const onClick = (channelId) => () => {
     dispatch(makeActive(channelId));
   };
@@ -28,25 +23,6 @@ function Channels() {
   const onRenameClick = (id) => () => {
     dispatch(showRenameChannel(id));
   };
-  const newMessageNotification = (message) => {
-    toast(message);
-  };
-  Socket.on('removeChannel', ({ id }) => {
-    if (+channelToBeChanged === +activeId) {
-      dispatch(makeActive(1));
-    }
-    if (+channelToBeChanged === +id) {
-      dispatch(removeChannel(id));
-      dispatch(setChannelToBeChanged(null));
-      newMessageNotification('removed');
-    }
-  });
-  Socket.on('renameChannel', ({ id, name }) => {
-    if (+channelToBeChanged === +id) {
-      dispatch(renameChannel({ id, name }));
-      dispatch(setChannelToBeChanged(null));
-    }
-  });
   return (
     <Nav variant="pills" align="start" as="ul">
       {Object.entries(channels).map(([id, { name, removable }]) => (
