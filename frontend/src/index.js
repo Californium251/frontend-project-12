@@ -1,29 +1,14 @@
 /* eslint-disable react/jsx-filename-extension */
-import React from 'react';
 import ReactDOM from 'react-dom/client';
-import './index.css';
-import { BrowserRouter } from 'react-router-dom';
-import { Provider } from 'react-redux';
 import reportWebVitals from './reportWebVitals';
-import './locales/index';
-import App from './App';
-import store from './slices/index';
-import SocketProvider from './context/SocketProvider';
-import Socket from './components/Socket';
+import init from './init';
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+const app = async () => {
+  const root = ReactDOM.createRoot(document.getElementById('root'));
+  root.render(await init());
+};
 
-root.render(
-  <React.StrictMode>
-    <SocketProvider.Provider value={Socket}>
-      <Provider store={store}>
-        <BrowserRouter>
-          <App />
-        </BrowserRouter>
-      </Provider>
-    </SocketProvider.Provider>
-  </React.StrictMode>,
-);
+app();
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
