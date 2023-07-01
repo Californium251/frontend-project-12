@@ -15,7 +15,7 @@ function Channels() {
   const channels = useSelector((state) => state.channels.value);
   const activeId = useSelector((state) => state.channels.activeId);
   const onClick = (channelId) => () => {
-    dispatch(makeActive(channelId));
+    dispatch(makeActive(+channelId));
   };
   const onDelClick = (id) => () => {
     dispatch(showRemoveChannel(id));

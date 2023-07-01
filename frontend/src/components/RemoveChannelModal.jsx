@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import React from 'react';
+import React, { useContext } from 'react';
 import {
   Modal, FormGroup, Button,
 } from 'react-bootstrap';
@@ -10,8 +10,7 @@ import 'bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { hideModal } from '../slices/modalsSlice';
-import Socket from './Socket';
-import { setChannelToBeChanged } from '../slices/channelSlice';
+import SocketContext from '../context/SocketContext';
 
 function RemoveChannelModal() {
   const { t } = useTranslation();
@@ -19,6 +18,7 @@ function RemoveChannelModal() {
   const onHide = () => {
     dispatch(hideModal('removeChannel'));
   };
+  const { removeChannelEmit } = useContext(SocketContext);
   const id = useSelector((state) => state.modals.removeChannel);
   return (
     <Modal show>
@@ -28,13 +28,9 @@ function RemoveChannelModal() {
       <Modal.Body>
         <Formik
           initialValues={{ id }}
-          onSubmit={(values) => {
-            Socket.emit('removeChannel', values, (res) => {
-              if (res.status === 'ok') {
-                dispatch(setChannelToBeChanged(id));
-                dispatch(hideModal('removeChannel'));
-              }
-            });
+          onSubmit={async (values) => {
+            dispatch(hideModal('removeChannel'));
+            await removeChannelEmit(values);
           }}
         >
           <Form id="removeChannelForm">

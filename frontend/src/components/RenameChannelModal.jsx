@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import React, { useRef } from 'react';
+import React, { useRef, useContext } from 'react';
 import { Modal, FormGroup, Button } from 'react-bootstrap';
 import {
   Formik, Form, ErrorMessage, Field,
@@ -8,15 +8,15 @@ import 'bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { hideModal } from '../slices/modalsSlice';
-import Socket from './Socket';
 import { channelNameValidation } from './validations';
-import { setChannelToBeChanged } from '../slices/channelSlice';
+import SocketContext from '../context/SocketContext';
 
 function RenameChannelModal() {
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const id = useSelector((state) => state.modals.renameChannel);
   const initialName = useSelector((state) => state.channels.value[id].name);
+  const { renameChannelEmit } = useContext(SocketContext);
   const onHide = () => {
     dispatch(hideModal('renameChannel'));
   };
@@ -33,18 +33,14 @@ function RenameChannelModal() {
         <Formik
           initialValues={{ name: initialName }}
           validationSchema={channelNameValidation(channelNames)}
-          onSubmit={(values) => {
+          onSubmit={async (values) => {
             const newVals = {
               id,
               name: values.name,
               removable: true,
             };
-            Socket.emit('renameChannel', newVals, (res) => {
-              if (res.status === 'ok') {
-                dispatch(setChannelToBeChanged(id));
-                dispatch(hideModal('renameChannel'));
-              }
-            });
+            dispatch(hideModal('renameChannel'));
+            await renameChannelEmit(newVals);
           }}
         >
           <Form id="renameChannelForm">

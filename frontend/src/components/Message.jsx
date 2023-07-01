@@ -1,13 +1,13 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
 
-function Message({ username, text }) {
+function Message({ username, body }) {
   return (
     <div className="text-break mb-2">
       <b>{username}</b>
       :
       {' '}
-      {text}
+      {body}
     </div>
   );
 }

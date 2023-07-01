@@ -11,19 +11,19 @@ const messageSlice = createSlice({
     newMessage: (state, { payload }) => {
       const {
         id,
-        text,
+        body,
         username,
         channelId,
       } = payload;
-      state[id] = { text, username, channelId };
+      state[id] = { body, username, channelId };
     },
     addMessages: (state, { payload }) => {
       payload.reduce((res, el) => {
         const {
-          id, text, username, channelId,
+          id, body, username, channelId,
         } = el;
         res[id] = {
-          id, text, username, channelId,
+          id, body, username, channelId,
         };
         return res;
       }, state);

@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import React from 'react';
+import React, { useContext } from 'react';
 import { Modal, FormGroup, Button } from 'react-bootstrap';
 import {
   Formik, Form, ErrorMessage, Field,
@@ -8,8 +8,8 @@ import 'bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { hideModal } from '../slices/modalsSlice';
-import Socket from './Socket';
 import { channelNameValidation } from './validations';
+import SocketContext from '../context/SocketContext';
 
 function NewChannelModal() {
   const { t } = useTranslation();
@@ -20,6 +20,7 @@ function NewChannelModal() {
   const channelNames = useSelector(({ channels }) => Object
     .values(channels.value)
     .map(({ name }) => name));
+  const { newChannelEmit } = useContext(SocketContext);
   return (
     <Modal show>
       <Modal.Header closeButton onHide={onHide}>
@@ -30,7 +31,7 @@ function NewChannelModal() {
           initialValues={{ name: '' }}
           validationSchema={channelNameValidation(channelNames)}
           onSubmit={({ name }) => {
-            Socket.emit('newChannel', {
+            newChannelEmit({
               name,
               removable: true,
             });
