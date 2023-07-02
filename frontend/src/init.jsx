@@ -3,6 +3,7 @@ import i18next from 'i18next';
 import { I18nextProvider, initReactI18next } from 'react-i18next';
 import { Provider } from 'react-redux';
 import { io } from 'socket.io-client';
+import Rollbar from '@rollbar/react';
 import App from './App';
 import resources from './locales/index';
 import {
@@ -15,6 +16,14 @@ import SocketContext from './context/SocketContext';
 const init = async () => {
   const Socket = io('http://localhost:3000/');
   const i18n = i18next.createInstance();
+  const rollbarConfig = {
+    accessToken: 'a8049e8e984a4ee7ae4e994d513e2b7f',
+    environment: 'testenv',
+  };
+  function TestError() {
+    const a = null;
+    return a.hello();
+  };
 
   const newMessageCallback = (socket) => {
     store.dispatch(newMessage(socket));
@@ -54,16 +63,21 @@ const init = async () => {
     });
 
   return (
-    <Provider store={store}>
-      <SocketContext.Provider value={{
-        newMessageEmit, newChannelEmit, removeChannelEmit, renameChannelEmit,
-      }}
-      >
-        <I18nextProvider i18={i18n}>
-          <App />
-        </I18nextProvider>
-      </SocketContext.Provider>
-    </Provider>
+    <Rollbar.Provider config={rollbarConfig}>
+      <Rollbar.ErrorBoundary>
+        <Provider store={store}>
+          <SocketContext.Provider value={{
+            newMessageEmit, newChannelEmit, removeChannelEmit, renameChannelEmit,
+          }}
+          >
+            <I18nextProvider i18={i18n}>
+              <App />
+              <TestError />
+            </I18nextProvider>
+          </SocketContext.Provider>
+        </Provider>
+      </Rollbar.ErrorBoundary>
+    </Rollbar.Provider>
   );
 };
 
