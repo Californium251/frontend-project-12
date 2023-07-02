@@ -23,7 +23,7 @@ const init = async () => {
   function TestError() {
     const a = null;
     return a.hello();
-  };
+  }
 
   const newMessageCallback = (socket) => {
     store.dispatch(newMessage(socket));
