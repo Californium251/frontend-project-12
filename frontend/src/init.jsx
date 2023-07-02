@@ -20,10 +20,6 @@ const init = async () => {
     accessToken: 'fedb5b29e6cc406f83568bc1c6e5d674',
     environment: 'testenv',
   };
-  function TestError() {
-    const a = null;
-    return a.hello();
-  }
 
   const newMessageCallback = (socket) => {
     store.dispatch(newMessage(socket));
@@ -72,7 +68,6 @@ const init = async () => {
           >
             <I18nextProvider i18={i18n}>
               <App />
-              <TestError />
             </I18nextProvider>
           </SocketContext.Provider>
         </Provider>
