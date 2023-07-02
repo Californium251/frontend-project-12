@@ -1,13 +1,10 @@
 import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import filter from 'leo-profanity'
+import filter from 'leo-profanity';
 import Message from './Message';
 import 'react-toastify/dist/ReactToastify.css';
 
 function MessageBox() {
-  useEffect(() => {
-    this.scrollDown();
-  });
   useEffect(() => {
     filter.loadDictionary('ru');
   }, []);
