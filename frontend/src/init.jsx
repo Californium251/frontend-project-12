@@ -17,7 +17,7 @@ const init = async () => {
   const Socket = io('http://localhost:3000/');
   const i18n = i18next.createInstance();
   const rollbarConfig = {
-    accessToken: 'a8049e8e984a4ee7ae4e994d513e2b7f',
+    accessToken: 'fedb5b29e6cc406f83568bc1c6e5d674',
     environment: 'testenv',
   };
   function TestError() {
