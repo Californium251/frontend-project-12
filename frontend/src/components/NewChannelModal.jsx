@@ -6,6 +6,7 @@ import {
 } from 'formik';
 import 'bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
+import { toast } from 'react-toastify';
 import { useTranslation } from 'react-i18next';
 import { hideModal } from '../slices/modalsSlice';
 import { channelNameValidation } from './validations';
@@ -34,8 +35,10 @@ function NewChannelModal() {
             newChannelEmit({
               name,
               removable: true,
+            }).then(() => {
+              dispatch(hideModal('newChannel'));
+              toast.success(t('channelCreated'));
             });
-            dispatch(hideModal('newChannel'));
           }}
         >
           <Form id="newChannelForm">

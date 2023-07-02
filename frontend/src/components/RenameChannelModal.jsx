@@ -6,6 +6,7 @@ import {
 } from 'formik';
 import 'bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
+import { toast } from 'react-toastify';
 import { useTranslation } from 'react-i18next';
 import { hideModal } from '../slices/modalsSlice';
 import { channelNameValidation } from './validations';
@@ -33,14 +34,17 @@ function RenameChannelModal() {
         <Formik
           initialValues={{ name: initialName }}
           validationSchema={channelNameValidation(channelNames)}
-          onSubmit={async (values) => {
+          onSubmit={(values) => {
             const newVals = {
               id,
               name: values.name,
               removable: true,
             };
-            dispatch(hideModal('renameChannel'));
-            await renameChannelEmit(newVals);
+            renameChannelEmit(newVals).then(() => {
+              dispatch(hideModal('renameChannel'));
+            }).then(() => {
+              toast.success(t('channelRenamed'));
+            });
           }}
         >
           <Form id="renameChannelForm">

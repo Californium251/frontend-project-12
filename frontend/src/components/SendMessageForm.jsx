@@ -7,6 +7,7 @@ import {
 import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import SocketContext from '../context/SocketContext';
+import { newMessageValidation } from './validations';
 
 function SendMessageForm() {
   const channelId = useSelector((state) => state.channels.activeId);
@@ -18,14 +19,16 @@ function SendMessageForm() {
       initialValues={{
         body: '',
       }}
+      validationSchema={newMessageValidation}
       onSubmit={async (values, { resetForm }) => {
         const newValues = {
           body: values.body,
           channelId,
           username,
         };
-        await newMessageEmit(newValues);
-        resetForm();
+        newMessageEmit(newValues).then(() => {
+          resetForm();
+        });
       }}
     >
       <div className="mt-auto px-5 py-3">

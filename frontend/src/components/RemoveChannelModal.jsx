@@ -8,6 +8,7 @@ import {
 } from 'formik';
 import 'bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
+import { toast } from 'react-toastify';
 import { useTranslation } from 'react-i18next';
 import { hideModal } from '../slices/modalsSlice';
 import SocketContext from '../context/SocketContext';
@@ -28,9 +29,11 @@ function RemoveChannelModal() {
       <Modal.Body>
         <Formik
           initialValues={{ id }}
-          onSubmit={async (values) => {
-            dispatch(hideModal('removeChannel'));
-            await removeChannelEmit(values);
+          onSubmit={(values) => {
+            removeChannelEmit(values).then(() => {
+              dispatch(hideModal('removeChannel'));
+              toast.success(t('channelRemoved'));
+            });
           }}
         >
           <Form id="removeChannelForm">

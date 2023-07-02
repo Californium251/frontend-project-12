@@ -3,7 +3,6 @@ import i18next from 'i18next';
 import { I18nextProvider, initReactI18next } from 'react-i18next';
 import { Provider } from 'react-redux';
 import { io } from 'socket.io-client';
-import { toast } from 'react-toastify';
 import App from './App';
 import resources from './locales/index';
 import {
@@ -23,16 +22,13 @@ const init = async () => {
   const newChannelCallback = (socket) => {
     if (socket.name) {
       store.dispatch(newChannel(socket));
-      toast.success('ok');
     }
   };
   const removeChannelCallback = ({ id }) => {
     store.dispatch(removeChannel(id));
-    toast.success('ok');
   };
   const renameChannelCallback = (data) => {
     store.dispatch(renameChannel(data));
-    toast.success('ok');
   };
   const newMessageEmit = async (data) => {
     Socket.emit('newMessage', data);
@@ -54,7 +50,7 @@ const init = async () => {
     .use(initReactI18next)
     .init({
       resources,
-      fallbacking: 'ru',
+      fallbackLng: 'ru',
     });
 
   return (

@@ -11,7 +11,11 @@ export const loginValidation = Yup.object().shape({
 });
 
 export const signupValidation = Yup.object().shape({
-  username: Yup.string().required('Required!'),
-  password: Yup.string().required('Required!').min(6),
+  username: Yup.string().min(3).required('Required!'),
+  password: Yup.string().min(6).required('Required!'),
   passwordRepeat: Yup.string().oneOf([Yup.ref('password'), null], 'Passwords must match'),
+});
+
+export const newMessageValidation = Yup.object().shape({
+  body: Yup.string().required('Required!'),
 });
