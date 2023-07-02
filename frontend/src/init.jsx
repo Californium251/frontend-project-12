@@ -3,7 +3,7 @@ import i18next from 'i18next';
 import { I18nextProvider, initReactI18next } from 'react-i18next';
 import { Provider } from 'react-redux';
 import { io } from 'socket.io-client';
-import Rollbar from '@rollbar/react';
+import { Provider as RollbarProvider, ErrorBoundary } from '@rollbar/react';
 import App from './App';
 import resources from './locales/index';
 import {
@@ -63,8 +63,8 @@ const init = async () => {
     });
 
   return (
-    <Rollbar.Provider config={rollbarConfig}>
-      <Rollbar.ErrorBoundary>
+    <RollbarProvider config={rollbarConfig}>
+      <ErrorBoundary>
         <Provider store={store}>
           <SocketContext.Provider value={{
             newMessageEmit, newChannelEmit, removeChannelEmit, renameChannelEmit,
@@ -76,8 +76,8 @@ const init = async () => {
             </I18nextProvider>
           </SocketContext.Provider>
         </Provider>
-      </Rollbar.ErrorBoundary>
-    </Rollbar.Provider>
+      </ErrorBoundary>
+    </RollbarProvider>
   );
 };
 
