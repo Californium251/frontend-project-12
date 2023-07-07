@@ -1,6 +1,5 @@
 export default {
   translation: {
-    header: 'Чат Максима Курепова',
     channels: 'Каналы',
     messages_zero: 'сообщений',
     messages_one: 'сообщение',
@@ -8,12 +7,12 @@ export default {
     messages_few: 'сообщения',
     messages_many: 'сообщений',
     messages_other: 'сообщений',
-    appName: 'Hexlet чат',
+    appName: 'Hexlet Chat',
     signout: 'Выйти',
     removeChannel: 'Удалить',
     renameChannel: 'Переименовать',
     loginHeader: 'Войти',
-    nicknameLabel: 'Ваш никнейм',
+    nicknameLabel: 'Ваш ник',
     passwordLabel: 'Пароль',
     loginButton: 'Войти',
     noAccount: 'Нет аккаунта?',

@@ -1,10 +1,9 @@
 export default {
   translation: {
-    header: 'Maxim Kurepov chat',
     channels: 'Channels',
     messages_one: 'message',
     messages_plural: 'messages',
-    appName: 'Hexlet chat',
+    appName: 'Hexlet Chat',
     signout: 'Sign out',
     removeChannel: 'Remove',
     renameChannel: 'Rename',

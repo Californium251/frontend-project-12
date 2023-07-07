@@ -3,7 +3,7 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
-  ButtonGroup, Dropdown, Nav,
+  Button, ButtonGroup, Dropdown, Nav,
 } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { makeActive } from '../slices/channelSlice';
@@ -26,16 +26,22 @@ function Channels() {
   return (
     <Nav variant="pills" align="start" as="ul">
       {Object.entries(channels).map(([id, { name, removable }]) => (
-        <Nav.Item key={id} as="li" className={`w-100 ${+id === +activeId ? 'btn-secondary' : ''}`}>
+        <Nav.Item key={id} as="li" className={`w-100 text-truncate ${+id === +activeId ? 'btn-secondary' : ''}`}>
           {removable
             ? (
-              <Dropdown as={ButtonGroup} variant="light" className="w-100">
-                <Nav.Link className={`w-100 rounded-0 text-start ${+id === +activeId ? 'btn-secondary' : ''}`} onClick={onClick(id)}>
-                  #
-                  {' '}
-                  {name}
-                </Nav.Link>
-                <Dropdown.Toggle variant="light" split />
+              <Dropdown as={ButtonGroup} variant="light" className="d-flex">
+                <Button
+                  variant="light"
+                  className={`w-100 rounded-0 text-start ${+id === +activeId ? 'btn-secondary' : ''}`}
+                  onClick={onClick(id)}
+                >
+                  <span className="me-1">
+                    #
+                    {' '}
+                    {name}
+                  </span>
+                </Button>
+                <Dropdown.Toggle variant="light" id="dropdown-split-basic" split />
                 <Dropdown.Menu>
                   <Dropdown.Item onClick={onDelClick(id)} href="#">{t('removeChannel')}</Dropdown.Item>
                   <Dropdown.Item onClick={onRenameClick(id)} href="#">{t('renameChannel')}</Dropdown.Item>
@@ -43,11 +49,11 @@ function Channels() {
               </Dropdown>
             )
             : (
-              <Nav.Link onClick={onClick(id)} className="w-100 rounded-0 text-start">
+              <Button variant="light" onClick={onClick(id)} className="w-100 rounded-0 text-start">
                 #
                 {' '}
                 {name}
-              </Nav.Link>
+              </Button>
             )}
         </Nav.Item>
       ))}

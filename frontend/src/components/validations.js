@@ -2,7 +2,8 @@
 import * as Yup from 'yup';
 
 export const channelNameValidation = (channelNames) => Yup.object().shape({
-  name: Yup.string().required().notOneOf(channelNames),
+  name: Yup.string().required().min(3).max(20)
+    .notOneOf(channelNames),
 });
 
 export const loginValidation = Yup.object().shape({
