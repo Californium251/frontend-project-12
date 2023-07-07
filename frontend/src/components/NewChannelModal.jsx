@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import React, { useContext } from 'react';
+import React, { useContext, useRef, useEffect } from 'react';
 import { Modal, FormGroup, Button } from 'react-bootstrap';
 import {
   Formik, Form, ErrorMessage, Field,
@@ -22,6 +22,10 @@ function NewChannelModal() {
     .values(channels.value)
     .map(({ name }) => name));
   const { newChannelEmit } = useContext(SocketContext);
+  const nameField = useRef(null);
+  useEffect(() => {
+    nameField.current.focus();
+  }, []);
   return (
     <Modal show>
       <Modal.Header closeButton onHide={onHide}>
@@ -43,7 +47,7 @@ function NewChannelModal() {
         >
           <Form id="newChannelForm">
             <FormGroup>
-              <Field name="name" type="text" className="mb-2 form-control" />
+              <Field innerRef={nameField} validateOnBlur={false} name="name" type="text" className="mb-2 form-control" />
               <label htmlFor="name" className="visually-hidden">{t('channelName')}</label>
               <ErrorMessage name="name">{(msg) => <div>{msg}</div>}</ErrorMessage>
             </FormGroup>

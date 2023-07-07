@@ -26,13 +26,13 @@ function Channels() {
   return (
     <Nav variant="pills" align="start" as="ul">
       {Object.entries(channels).map(([id, { name, removable }]) => (
-        <Nav.Item key={id} as="li" className={`w-100 text-truncate ${+id === +activeId ? 'btn-secondary' : ''}`}>
+        <Nav.Item key={id} as="li" className={`w-100 ${+id === +activeId ? 'btn-secondary' : ''}`}>
           {removable
             ? (
-              <Dropdown as={ButtonGroup} variant="light" className="d-flex">
+              <Dropdown as={ButtonGroup} variant="light" className="w-100">
                 <Button
-                  variant="light"
-                  className={`w-100 rounded-0 text-start ${+id === +activeId ? 'btn-secondary' : ''}`}
+                  variant={+id === +activeId ? 'secondary' : 'light'}
+                  className="w-100 rounded-0 text-start text-truncate"
                   onClick={onClick(id)}
                 >
                   <span className="me-1">
@@ -41,7 +41,7 @@ function Channels() {
                     {name}
                   </span>
                 </Button>
-                <Dropdown.Toggle variant="light" id="dropdown-split-basic" split />
+                <Dropdown.Toggle variant={+id === +activeId ? 'secondary' : 'light'} split />
                 <Dropdown.Menu>
                   <Dropdown.Item onClick={onDelClick(id)} href="#">{t('removeChannel')}</Dropdown.Item>
                   <Dropdown.Item onClick={onRenameClick(id)} href="#">{t('renameChannel')}</Dropdown.Item>
@@ -49,7 +49,11 @@ function Channels() {
               </Dropdown>
             )
             : (
-              <Button variant="light" onClick={onClick(id)} className="w-100 rounded-0 text-start">
+              <Button
+                variant={+id === +activeId ? 'secondary' : 'light'}
+                onClick={onClick(id)}
+                className="w-100 rounded-0 text-start"
+              >
                 #
                 {' '}
                 {name}

@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import React, { useRef, useContext } from 'react';
+import React, { useRef, useContext, useEffect } from 'react';
 import { Modal, FormGroup, Button } from 'react-bootstrap';
 import {
   Formik, Form, ErrorMessage, Field,
@@ -25,6 +25,9 @@ function RenameChannelModal() {
     .values(channels.value)
     .map(({ name }) => name));
   const nameField = useRef(null);
+  useEffect(() => {
+    nameField.current.focus();
+  }, []);
   return (
     <Modal show>
       <Modal.Header closeButton onHide={onHide}>
@@ -49,7 +52,7 @@ function RenameChannelModal() {
         >
           <Form id="renameChannelForm">
             <FormGroup>
-              <Field name="name" type="text" className="mb-2 form-control" ref={nameField} />
+              <Field name="name" type="text" className="mb-2 form-control" innerRef={nameField} />
               <label htmlFor="name" className="visually-hidden">{t('renameChannelLabel')}</label>
               <ErrorMessage name="name">{(msg) => <div>{msg}</div>}</ErrorMessage>
             </FormGroup>
