@@ -28,5 +28,7 @@ export default {
     channelCreated: 'Channel created',
     channelRenamed: 'Channel renamed',
     channelRemoved: 'Channel removed',
+    ERR_BAD_REQUEST: 'Incorrect user name or password',
+    ERR_NETWORK: 'Connection error',
   },
 };

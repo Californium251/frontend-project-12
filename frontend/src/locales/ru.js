@@ -32,5 +32,7 @@ export default {
     channelCreated: 'Канал создан',
     channelRenamed: 'Канал переименован',
     channelRemoved: 'Канал удалён',
+    ERR_BAD_REQUEST: 'Неверные имя пользователя или пароль',
+    ERR_NETWORK: 'Ошибка соединения',
   },
 };

@@ -54,7 +54,7 @@ function RenameChannelModal() {
             <FormGroup>
               <Field name="name" type="text" className="mb-2 form-control" innerRef={nameField} />
               <label htmlFor="name" className="visually-hidden">{t('renameChannelLabel')}</label>
-              <ErrorMessage name="name">{(msg) => <div>{msg}</div>}</ErrorMessage>
+              <ErrorMessage name="name">{(msg) => <div className="text-danger">{msg}</div>}</ErrorMessage>
             </FormGroup>
           </Form>
         </Formik>

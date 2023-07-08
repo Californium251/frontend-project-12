@@ -61,37 +61,53 @@ function SignUp() {
                           <Form onSubmit={formik.handleSubmit}>
                             <h1 className="text-center mb-4">{t('signUpFormHeader')}</h1>
                             <FloatingLabel className="mb-3" label={t('nicknameLabel')}>
-                              <Form.Control className={error ? 'is-invalid' : null} type="text" name="username" id="username" value={formik.values.username} onChange={formik.handleChange} />
-                              {formik.touched.username && formik.errors.username ? (
-                                <div className="text-danger">{formik.errors.username}</div>
-                              ) : null}
+                              <Form.Control
+                                className={error ? 'is-invalid' : null}
+                                type="text"
+                                name="username"
+                                id="username"
+                                value={formik.values.username}
+                                onChange={formik.handleChange}
+                                isInvalid={!!formik.errors.username}
+                                required
+                              />
+                              <Form.Control.Feedback type="invalid" tooltip>
+                                {t(formik.errors.username)}
+                              </Form.Control.Feedback>
                             </FloatingLabel>
-                            <div className="has-validation">
-                              <FloatingLabel className="mb-3" label={t('passwordLabel')}>
-                                <Form.Control className={error ? 'is-invalid' : null} type="password" name="password" id="password" value={formik.values.password} onChange={formik.handleChange} />
-                                {formik.touched.password && formik.errors.password ? (
-                                  <div className="text-danger">{formik.errors.password}</div>
-                                ) : null}
-                                {error ? (
-                                  <div className="invalid-tooltip">
-                                    {error}
-                                  </div>
-                                ) : null}
-                              </FloatingLabel>
-                            </div>
-                            <div className="has-validation">
-                              <FloatingLabel className="mb-3" label={t('passwordConfirmation')}>
-                                <Form.Control className={error ? 'is-invalid' : null} type="password" name="passwordRepeat" id="passwordRepeat" value={formik.values.passwordRepeat} onChange={formik.handleChange} />
-                                {formik.touched.passwordRepeat && formik.errors.passwordRepeat ? (
-                                  <div className="text-danger">{formik.errors.passwordRepeat}</div>
-                                ) : null}
-                                {error ? (
-                                  <div className="invalid-tooltip">
-                                    {error}
-                                  </div>
-                                ) : null}
-                              </FloatingLabel>
-                            </div>
+                            <FloatingLabel className="mb-3" label={t('passwordLabel')}>
+                              <Form.Control
+                                className={error ? 'is-invalid' : null}
+                                type="password"
+                                name="password"
+                                id="password"
+                                value={formik.values.password}
+                                onChange={formik.handleChange}
+                                isInvalid={!!formik.errors.password}
+                                required
+                              />
+                              <Form.Control.Feedback type="invalid" tooltip>
+                                {t(formik.errors.password)}
+                              </Form.Control.Feedback>
+                            </FloatingLabel>
+                            <FloatingLabel className="mb-3" label={t('passwordConfirmation')}>
+                              <Form.Control
+                                className={error ? 'is-invalid' : null}
+                                type="password"
+                                name="passwordRepeat"
+                                id="passwordRepeat"
+                                value={formik.values.passwordRepeat}
+                                onChange={formik.handleChange}
+                                isInvalid={!!formik.errors.passwordRepeat}
+                                required
+                              />
+                              <Form.Control.Feedback type="invalid" tooltip>
+                                {t(formik.errors.passwordRepeat)}
+                              </Form.Control.Feedback>
+                            </FloatingLabel>
+                            <Form.Control.Feedback type="invalid" tooltip>
+                              {t(error)}
+                            </Form.Control.Feedback>
                             <Button variant="outline-primary" className="w-100 mb-3" type="submit">{t('signupButton')}</Button>
                           </Form>
                         </div>
