@@ -76,6 +76,7 @@ function SignUp() {
                           onBlur={formik.handleBlur}
                           isInvalid={!!formik.touched.username && !!formik.errors.username}
                           ref={usernameInput}
+                          placeholder={t('usernameLength')}
                           required
                         />
                         <Form.Control.Feedback type="invalid" tooltip>
@@ -91,6 +92,7 @@ function SignUp() {
                           onChange={formik.handleChange}
                           onBlur={formik.handleBlur}
                           isInvalid={!!formik.errors.password && !!formik.touched.password}
+                          placeholder={t('passwordLength')}
                           required
                         />
                         <Form.Control.Feedback type="invalid" tooltip>
@@ -108,6 +110,7 @@ function SignUp() {
                           isInvalid={!!formik.errors.passwordRepeat
                             && !!formik.touched.passwordRepeat}
                           required
+                          placeholder={t('passwordsMustMatch')}
                         />
                         <Form.Control.Feedback type="invalid" tooltip>
                           {t(formik.errors.passwordRepeat)}

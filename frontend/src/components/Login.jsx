@@ -67,6 +67,7 @@ function Login() {
                           className={error ? 'is-invalid' : ''}
                           isInvalid={!!error}
                           required
+                          placeholder={t('nicknameLabel')}
                         />
                       </FloatingLabel>
                       <FloatingLabel className="mb-3" label={t('passwordLabel')}>
@@ -78,6 +79,7 @@ function Login() {
                           onChange={formik.handleChange}
                           isInvalid={!!error}
                           required
+                          placeholder={t('passwordLabel')}
                         />
                         <Form.Control.Feedback type="invalid" tooltip>
                           {t(error)}
