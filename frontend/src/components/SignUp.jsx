@@ -34,6 +34,7 @@ function SignUp() {
       username: t('usernameLength'),
       password: t('passwordLength'),
       passwordsMustMatch: t('passwordsMustMatch'),
+      required: t('required'),
     }),
     onSubmit: async (values) => {
       try {

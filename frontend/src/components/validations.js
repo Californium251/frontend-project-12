@@ -12,8 +12,8 @@ export const loginValidation = Yup.object().shape({
 });
 
 export const signupValidation = (keys) => Yup.object().shape({
-  username: Yup.string().min(3, keys.username).max(20, keys.username),
-  password: Yup.string().min(6, keys.password),
+  username: Yup.string().min(3, keys.username).max(20, keys.username).required(keys.required),
+  password: Yup.string().min(6, keys.password).required(keys.required),
   passwordRepeat: Yup.string().oneOf([Yup.ref('password'), null], keys.passwordsMustMatch),
 });
 

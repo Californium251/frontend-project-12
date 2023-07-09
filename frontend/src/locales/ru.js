@@ -39,5 +39,6 @@ export default {
     usernameLength: 'От 3 до 20 символов',
     passwordLength: 'Не менее 6 символов',
     channelLength: 'От 3 до 20 символов',
+    required: 'Обязательное поле',
   },
 };

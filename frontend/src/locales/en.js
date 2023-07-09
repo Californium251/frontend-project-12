@@ -34,5 +34,6 @@ export default {
     usernameLength: 'From 3 to 20 characters',
     passwordLength: 'At least 6 characters',
     channelLength: 'From 3 to 20 characters',
+    required: 'Required field',
   },
 };
