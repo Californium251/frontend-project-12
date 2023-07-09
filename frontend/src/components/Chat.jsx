@@ -36,7 +36,7 @@ const Chat = () => {
       dispatch(addMessages(res.data.messages));
     };
     getChats();
-  }, []);
+  }, [dispatch]);
   return (
     <Container fluid className="vh-100 d-flex flex-column">
       <AppHeader />
