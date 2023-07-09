@@ -2,7 +2,7 @@
   "dependencies": {
     "@hexlet/chat-server": "^1.1.6"
   },
-  "name": "frontend-project-12",
+  "name": "@hexlet/code",
   "description": "[![Actions Status](https://github.com/Californium251/frontend-project-12/workflows/hexlet-check/badge.svg)](https://github.com/Californium251/frontend-project-12/actions)",
   "version": "1.0.0",
   "main": "src/index.js",
