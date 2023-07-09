@@ -35,5 +35,7 @@ export default {
     passwordLength: 'At least 6 characters',
     channelLength: 'From 3 to 20 characters',
     required: 'Required field',
+    enterTheMessage: 'Enter the message...',
+    newMessage: 'New message',
   },
 };
