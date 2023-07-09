@@ -14,7 +14,7 @@ function AppHeader() {
     navigate('/login');
   };
   return (
-    <Navbar expand="lg" bg="light" className="shadow-sm">
+    <Navbar expand="lg" bg="white" className="shadow-sm">
       <Container>
         <Navbar.Brand href="/">{t('appName')}</Navbar.Brand>
         {token ? (

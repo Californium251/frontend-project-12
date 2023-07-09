@@ -7,14 +7,14 @@ export const channelNameValidation = (channelNames) => Yup.object().shape({
 });
 
 export const loginValidation = Yup.object().shape({
-  username: Yup.string().required('Required!'),
-  password: Yup.string().required('Required!'),
+  username: Yup.string(),
+  password: Yup.string(),
 });
 
-export const signupValidation = Yup.object().shape({
-  username: Yup.string().min(3).required('Required!'),
-  password: Yup.string().min(6).required('Required!'),
-  passwordRepeat: Yup.string().oneOf([Yup.ref('password'), null], 'Passwords must match'),
+export const signupValidation = (keys) => Yup.object().shape({
+  username: Yup.string().min(3, keys.username).max(20, keys.username),
+  password: Yup.string().min(6, keys.password),
+  passwordRepeat: Yup.string().oneOf([Yup.ref('password'), null], keys.passwordsMustMatch),
 });
 
 export const newMessageValidation = Yup.object().shape({

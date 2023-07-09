@@ -1,9 +1,9 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useContext, useRef, useEffect } from 'react';
-import { Modal, FormGroup, Button } from 'react-bootstrap';
 import {
-  Formik, Form, ErrorMessage, Field,
-} from 'formik';
+  Modal, Form, FormGroup, Button,
+} from 'react-bootstrap';
+import { useFormik } from 'formik';
 import 'bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
@@ -26,38 +26,50 @@ function NewChannelModal() {
   useEffect(() => {
     nameField.current.focus();
   }, []);
+  const formik = useFormik({
+    initialValues: {
+      name: '',
+    },
+    validationSchema: channelNameValidation(channelNames),
+    onSubmit: ({ name }) => {
+      newChannelEmit({
+        name,
+        removable: true,
+      }).then(() => {
+        dispatch(hideModal('newChannel'));
+        toast.success(t('channelCreated'));
+      });
+    },
+  });
   return (
-    <Modal show>
+    <Modal centered show>
       <Modal.Header closeButton onHide={onHide}>
         <Modal.Title>{t('newChannel')}</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <Formik
-          initialValues={{ name: '' }}
-          validationSchema={channelNameValidation(channelNames)}
-          onSubmit={({ name }) => {
-            newChannelEmit({
-              name,
-              removable: true,
-            }).then(() => {
-              dispatch(hideModal('newChannel'));
-              toast.success(t('channelCreated'));
-            });
-          }}
-        >
-          <Form id="newChannelForm">
-            <FormGroup>
-              <Field innerRef={nameField} validateOnBlur={false} name="name" type="text" className="mb-2 form-control" />
-              <label htmlFor="name" className="visually-hidden">{t('channelName')}</label>
-              <ErrorMessage name="name">{(msg) => <div className="text-danger">{msg}</div>}</ErrorMessage>
-            </FormGroup>
-          </Form>
-        </Formik>
+        <Form id="newChannelForm" onSubmit={formik.handleSubmit}>
+          <FormGroup>
+            <Form.Control
+              onChange={formik.handleChange}
+              value={formik.values.name}
+              name="name"
+              id="name"
+              type="text"
+              className="mb-2"
+              isInvalid={!!formik.errors.name && !!formik.touched.name}
+              ref={nameField}
+            />
+            <label htmlFor="name" className="visually-hidden">{t('channelName')}</label>
+            <Form.Control.Feedback type="invalid">
+              {t('channelLength')}
+            </Form.Control.Feedback>
+            <div className="justify-content-end d-flex">
+              <Button className="me-2" type="button" variant="secondary" onClick={onHide}>{t('cancel')}</Button>
+              <Button type="submit" form="newChannelForm">{t('send')}</Button>
+            </div>
+          </FormGroup>
+        </Form>
       </Modal.Body>
-      <Modal.Footer>
-        <Button type="button" variant="secondary" onClick={onHide}>{t('cancel')}</Button>
-        <Button type="submit" form="newChannelForm">{t('create')}</Button>
-      </Modal.Footer>
     </Modal>
   );
 }

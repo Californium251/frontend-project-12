@@ -1,9 +1,9 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useRef, useContext, useEffect } from 'react';
-import { Modal, FormGroup, Button } from 'react-bootstrap';
 import {
-  Formik, Form, ErrorMessage, Field,
-} from 'formik';
+  Form, Modal, FormGroup, Button,
+} from 'react-bootstrap';
+import { useFormik } from 'formik';
 import 'bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
@@ -28,41 +28,51 @@ function RenameChannelModal() {
   useEffect(() => {
     nameField.current.focus();
   }, []);
+  const formik = useFormik({
+    initialValues: { name: initialName },
+    validationSchema: channelNameValidation(channelNames),
+    onSubmit: (values) => {
+      const newVals = {
+        id,
+        name: values.name,
+        removable: true,
+      };
+      renameChannelEmit(newVals).then(() => {
+        dispatch(hideModal('renameChannel'));
+      }).then(() => {
+        toast.success(t('channelRenamed'));
+      });
+    },
+  });
   return (
-    <Modal show>
+    <Modal centered show>
       <Modal.Header closeButton onHide={onHide}>
         <Modal.Title>{t('renameChannelHeader')}</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <Formik
-          initialValues={{ name: initialName }}
-          validationSchema={channelNameValidation(channelNames)}
-          onSubmit={(values) => {
-            const newVals = {
-              id,
-              name: values.name,
-              removable: true,
-            };
-            renameChannelEmit(newVals).then(() => {
-              dispatch(hideModal('renameChannel'));
-            }).then(() => {
-              toast.success(t('channelRenamed'));
-            });
-          }}
-        >
-          <Form id="renameChannelForm">
-            <FormGroup>
-              <Field name="name" type="text" className="mb-2 form-control" innerRef={nameField} />
-              <label htmlFor="name" className="visually-hidden">{t('renameChannelLabel')}</label>
-              <ErrorMessage name="name">{(msg) => <div className="text-danger">{msg}</div>}</ErrorMessage>
-            </FormGroup>
-          </Form>
-        </Formik>
+        <Form id="renameChannelForm" onSubmit={formik.handleSubmit}>
+          <FormGroup>
+            <Form.Control
+              name="name"
+              id="name"
+              type="text"
+              className="mb-2"
+              ref={nameField}
+              onChange={formik.handleChange}
+              value={formik.values.name}
+              isInvalid={!!formik.errors.name && !!formik.touched.name}
+            />
+            <label htmlFor="name" className="visually-hidden">{t('renameChannelLabel')}</label>
+            <Form.Control.Feedback>
+              {t('channelLength')}
+            </Form.Control.Feedback>
+            <div className="d-flex justify-content-end">
+              <Button className="me-2" type="button" variant="secondary" onClick={onHide}>{t('cancel')}</Button>
+              <Button type="submit" form="renameChannelForm">{t('send')}</Button>
+            </div>
+          </FormGroup>
+        </Form>
       </Modal.Body>
-      <Modal.Footer>
-        <Button type="button" variant="secondary" onClick={onHide}>{t('cancel')}</Button>
-        <Button type="submit" form="renameChannelForm">{t('rename')}</Button>
-      </Modal.Footer>
     </Modal>
   );
 }

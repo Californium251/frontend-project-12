@@ -13,7 +13,7 @@ export default {
     loginButton: 'Sign in',
     noAccount: 'No account?',
     signupButton: 'Sign up',
-    newChannel: 'New channel',
+    newChannel: 'Add channel',
     cancel: 'Cancel',
     create: 'Create',
     removeChannelHeader: 'Remove channel',
@@ -30,5 +30,9 @@ export default {
     channelRemoved: 'Channel removed',
     ERR_BAD_REQUEST: 'Incorrect user name or password',
     ERR_NETWORK: 'Connection error',
+    passwordsMustMatch: 'Passwords must match',
+    usernameLength: 'From 3 to 20 characters',
+    passwordLength: 'At least 6 characters',
+    channelLength: 'From 3 to 20 characters',
   },
 };

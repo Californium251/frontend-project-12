@@ -45,59 +45,53 @@ function Login() {
   return (
     <Container fluid className="d-flex flex-column vh-100">
       <AppHeader />
-      <Container fluid className="h-100">
-        <Row className="justify-content-md-center align-content-center h-100">
+      <Container fluid className="h-100 bg-light">
+        <Row className="justify-content-center align-content-center h-100">
           <Col xs="12" md="8" xxl="6">
             <Card>
-              <Card.Body>
-                <Row className="p-5">
-                  <Col xs="12" md="6" className="d-flex align-items-center justify-content-center">
-                    <Image src={image} roundedCircle />
-                  </Col>
-                  <Col xs="12" md="6" className="mt-3 mt-mb-0 justify-content-md-center align-content-center">
-                    {!token
-                      ? (
-                        <div>
-                          <Form onSubmit={formik.handleSubmit}>
-                            <h1 className="text-center mb-4">{t('loginHeader')}</h1>
-                            <FloatingLabel className="mb-3" label={t('nicknameLabel')}>
-                              <Form.Control
-                                type="text"
-                                name="username"
-                                id="username"
-                                value={formik.values.username}
-                                onChange={formik.handleChange}
-                                className={error ? 'is-invalid' : ''}
-                                isInvalid={!!error}
-                                required
-                              />
-                            </FloatingLabel>
-                            <FloatingLabel className="mb-3" label={t('passwordLabel')}>
-                              <Form.Control
-                                type="password"
-                                name="password"
-                                id="password"
-                                value={formik.values.password}
-                                onChange={formik.handleChange}
-                                isInvalid={!!error}
-                                required
-                              />
-                              <Form.Control.Feedback type="invalid" tooltip>
-                                {t(error)}
-                              </Form.Control.Feedback>
-                            </FloatingLabel>
-                            <Button variant="outline-primary" className="w-100 mb-3" type="submit">{t('loginButton')}</Button>
-                          </Form>
-                        </div>
-                      )
-                      : <Navigate to="/" state={{ from: location }} replace />}
-                  </Col>
-                </Row>
+              <Card.Body className="p-5 row">
+                <Col xs="12" md="6" className="d-flex align-items-center justify-content-center">
+                  <Image src={image} roundedCircle />
+                </Col>
+                {!token
+                  ? (
+                    <Form className="col-12 col-md-6 mt-3 mt-mb-0" onSubmit={formik.handleSubmit}>
+                      <h1 className="text-center mb-4">{t('loginHeader')}</h1>
+                      <FloatingLabel className="mb-3" label={t('nicknameLabel')}>
+                        <Form.Control
+                          type="text"
+                          name="username"
+                          id="username"
+                          value={formik.values.username}
+                          onChange={formik.handleChange}
+                          className={error ? 'is-invalid' : ''}
+                          isInvalid={!!error}
+                          required
+                        />
+                      </FloatingLabel>
+                      <FloatingLabel className="mb-3" label={t('passwordLabel')}>
+                        <Form.Control
+                          type="password"
+                          name="password"
+                          id="password"
+                          value={formik.values.password}
+                          onChange={formik.handleChange}
+                          isInvalid={!!error}
+                          required
+                        />
+                        <Form.Control.Feedback type="invalid" tooltip>
+                          {t(error)}
+                        </Form.Control.Feedback>
+                      </FloatingLabel>
+                      <Button variant="outline-primary" className="w-100 mb-3" type="submit">{t('loginButton')}</Button>
+                    </Form>
+                  )
+                  : <Navigate to="/" state={{ from: location }} replace />}
               </Card.Body>
               <Card.Footer className="p-4 text-center">
                 <span>{t('noAccount')}</span>
                 {' '}
-                <a href="/signup">{t('signupButton')}</a>
+                <a href="/signup">{t('signUpFormHeader')}</a>
               </Card.Footer>
             </Card>
           </Col>

@@ -1,11 +1,9 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useContext } from 'react';
 import {
-  Modal, FormGroup, Button,
+  Modal, Form, FormGroup, Button,
 } from 'react-bootstrap';
-import {
-  Formik, Form,
-} from 'formik';
+import { useFormik } from 'formik';
 import 'bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
@@ -21,32 +19,31 @@ function RemoveChannelModal() {
   };
   const { removeChannelEmit } = useContext(SocketContext);
   const id = useSelector((state) => state.modals.removeChannel);
+  const formik = useFormik({
+    initialValues: { id },
+    onSubmit: (values) => {
+      removeChannelEmit(values).then(() => {
+        dispatch(hideModal('removeChannel'));
+        toast.success(t('channelRemoved'));
+      });
+    },
+  });
   return (
-    <Modal show>
+    <Modal centered show>
       <Modal.Header closeButton onHide={onHide}>
         <Modal.Title>{t('removeChannelHeader')}</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <Formik
-          initialValues={{ id }}
-          onSubmit={(values) => {
-            removeChannelEmit(values).then(() => {
-              dispatch(hideModal('removeChannel'));
-              toast.success(t('channelRemoved'));
-            });
-          }}
-        >
-          <Form id="removeChannelForm">
-            <FormGroup>
-              <p className="lead">{t('areYouSure')}</p>
-            </FormGroup>
-          </Form>
-        </Formik>
+        <Form id="removeChannelForm" onSubmit={formik.handleSubmit}>
+          <FormGroup>
+            <p className="lead">{t('areYouSure')}</p>
+          </FormGroup>
+          <div className="d-flex justify-content-end">
+            <Button className="me-2" variant="secondary" onClick={onHide}>{t('cancel')}</Button>
+            <Button variant="danger" type="submit" form="removeChannelForm">{t('remove')}</Button>
+          </div>
+        </Form>
       </Modal.Body>
-      <Modal.Footer>
-        <Button variant="secondary" onClick={onHide}>{t('cancel')}</Button>
-        <Button variant="danger" type="submit" form="removeChannelForm">{t('remove')}</Button>
-      </Modal.Footer>
     </Modal>
   );
 }

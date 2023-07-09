@@ -29,7 +29,7 @@ function Channels() {
         <Nav.Item key={id} as="li" className={`w-100 ${+id === +activeId ? 'btn-secondary' : ''}`}>
           {removable
             ? (
-              <Dropdown as={ButtonGroup} variant="light" className="w-100">
+              <Dropdown as={ButtonGroup} variant="light" className="w-100" align="start">
                 <Button
                   variant={+id === +activeId ? 'secondary' : 'light'}
                   className="w-100 rounded-0 text-start text-truncate"
