@@ -30,6 +30,7 @@ export default {
     send: 'Отправить',
     signUpFormHeader: 'Регистрация',
     passwordConfirmation: 'Подтвердите пароль',
+    channelName: 'Имя канала',
     channelCreated: 'Канал создан',
     channelRenamed: 'Канал переименован',
     channelRemoved: 'Канал удалён',

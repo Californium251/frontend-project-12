@@ -25,6 +25,7 @@ export default {
     send: 'Send',
     signUpFormHeader: 'Sign up',
     passwordConfirmation: 'Password confirmation',
+    channelName: 'Channel name',
     channelCreated: 'Channel created',
     channelRenamed: 'Channel renamed',
     channelRemoved: 'Channel removed',
