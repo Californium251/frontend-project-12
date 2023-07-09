@@ -82,7 +82,7 @@ function SignUp() {
                         <Form.Control.Feedback type="invalid" tooltip>
                           {t(formik.errors.username)}
                         </Form.Control.Feedback>
-                        <label htmlFor="username">{t('nicknameLabel')}</label>
+                        <label htmlFor="username">{t('signUpNicknameLabel')}</label>
                       </Form.Floating>
                       <Form.Floating className="mb-3">
                         <Form.Control
