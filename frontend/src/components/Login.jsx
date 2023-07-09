@@ -4,7 +4,7 @@ import { useFormik } from 'formik';
 import axios from 'axios';
 import { useNavigate, useLocation, Navigate } from 'react-router-dom';
 import {
-  Container, Row, Col, Card, Image, FloatingLabel, Button, Form,
+  Container, Row, Col, Card, Image, Button, Form,
 } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
@@ -57,7 +57,7 @@ function Login() {
                   ? (
                     <Form className="col-12 col-md-6 mt-3 mt-mb-0" onSubmit={formik.handleSubmit}>
                       <h1 className="text-center mb-4">{t('loginHeader')}</h1>
-                      <FloatingLabel className="mb-3" label={t('nicknameLabel')}>
+                      <Form.Floating className="mb-3">
                         <Form.Control
                           type="text"
                           name="username"
@@ -69,8 +69,9 @@ function Login() {
                           required
                           placeholder={t('nicknameLabel')}
                         />
-                      </FloatingLabel>
-                      <FloatingLabel className="mb-3" label={t('passwordLabel')}>
+                        <label htmlFor="username">{t('nicknameLabel')}</label>
+                      </Form.Floating>
+                      <Form.Floating className="mb-3">
                         <Form.Control
                           type="password"
                           name="password"
@@ -84,7 +85,8 @@ function Login() {
                         <Form.Control.Feedback type="invalid" tooltip>
                           {t(error)}
                         </Form.Control.Feedback>
-                      </FloatingLabel>
+                        <label htmlFor="password">{t('passwordLabel')}</label>
+                      </Form.Floating>
                       <Button variant="outline-primary" className="w-100 mb-3" type="submit">{t('loginButton')}</Button>
                     </Form>
                   )

@@ -3,7 +3,7 @@ import { useNavigate, useLocation, Navigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import axios from 'axios';
 import {
-  Container, Row, Col, Card, Form, FloatingLabel, Button, Image,
+  Container, Row, Col, Card, Form, Button, Image,
 } from 'react-bootstrap';
 import { useFormik } from 'formik';
 import { useTranslation } from 'react-i18next';
@@ -66,7 +66,7 @@ function SignUp() {
                   ? (
                     <Form onSubmit={formik.handleSubmit} className="col-12 col-md-6 mt-3 mt-mb-0">
                       <h1 className="text-center mb-4">{t('signUpFormHeader')}</h1>
-                      <FloatingLabel className="mb-3" label={t('signUpNicknameLabel')}>
+                      <Form.Floating className="mb-3">
                         <Form.Control
                           type="text"
                           name="username"
@@ -82,8 +82,9 @@ function SignUp() {
                         <Form.Control.Feedback type="invalid" tooltip>
                           {t(formik.errors.username)}
                         </Form.Control.Feedback>
-                      </FloatingLabel>
-                      <FloatingLabel className="mb-3" label={t('passwordLabel')}>
+                        <label htmlFor="username">{t('nicknameLabel')}</label>
+                      </Form.Floating>
+                      <Form.Floating className="mb-3">
                         <Form.Control
                           type="password"
                           name="password"
@@ -98,8 +99,9 @@ function SignUp() {
                         <Form.Control.Feedback type="invalid" tooltip>
                           {t(formik.errors.password)}
                         </Form.Control.Feedback>
-                      </FloatingLabel>
-                      <FloatingLabel className="mb-3" label={t('passwordConfirmation')}>
+                        <label htmlFor="password">{t('passwordLabel')}</label>
+                      </Form.Floating>
+                      <Form.Floating className="mb-3">
                         <Form.Control
                           type="password"
                           name="passwordRepeat"
@@ -115,7 +117,8 @@ function SignUp() {
                         <Form.Control.Feedback type="invalid" tooltip>
                           {t(formik.errors.passwordRepeat)}
                         </Form.Control.Feedback>
-                      </FloatingLabel>
+                        <label htmlFor="password">{t('passwordConfirmation')}</label>
+                      </Form.Floating>
                       <Form.Control.Feedback type="invalid" tooltip>
                         {t(error)}
                       </Form.Control.Feedback>
