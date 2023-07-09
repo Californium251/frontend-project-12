@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useNavigate, useLocation, Navigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import axios from 'axios';
@@ -20,6 +20,10 @@ function SignUp() {
   const navigate = useNavigate();
   const error = useSelector((state) => state.errors.signUpError);
   const dispatch = useDispatch();
+  const usernameInput = useRef(null);
+  useEffect(() => {
+    usernameInput.current.focus();
+  }, []);
   const formik = useFormik({
     initialValues: {
       username: '',
@@ -70,6 +74,7 @@ function SignUp() {
                           onChange={formik.handleChange}
                           onBlur={formik.handleBlur}
                           isInvalid={!!formik.touched.username && !!formik.errors.username}
+                          ref={usernameInput}
                           required
                         />
                         <Form.Control.Feedback type="invalid" tooltip>
