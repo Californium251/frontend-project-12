@@ -14,7 +14,7 @@ import store from './slices/index';
 import SocketContext from './context/SocketContext';
 
 const init = async () => {
-  const Socket = io('http://localhost:3000/');
+  const Socket = io('/');
   const i18n = i18next.createInstance();
   const rollbarConfig = {
     accessToken: 'fedb5b29e6cc406f83568bc1c6e5d674',
