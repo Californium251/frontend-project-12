@@ -12,7 +12,7 @@ import { hideModal } from '../slices/modalsSlice';
 import { channelNameValidation } from './validations';
 import SocketContext from '../context/SocketContext';
 
-function NewChannelModal() {
+const NewChannelModal = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const onHide = () => {

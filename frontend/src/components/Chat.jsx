@@ -18,7 +18,7 @@ import RemoveChannelModal from './RemoveChannelModal';
 import RenameChannelModal from './RenameChannelModal';
 import AppHeader from './AppHeader';
 
-function Chat() {
+const Chat = () => {
   const { t } = useTranslation();
   const modals = useSelector((state) => state.modals);
   const dispatch = useDispatch();

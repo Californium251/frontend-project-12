@@ -13,7 +13,7 @@ import { setName } from '../slices/userSlice';
 import image from '../img/signup.jpeg';
 import AppHeader from './AppHeader';
 
-function SignUp() {
+const SignUp = () => {
   const { t } = useTranslation();
   const token = window.localStorage.getItem('token');
   const location = useLocation();

@@ -2,7 +2,7 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 
-function ChatHeader() {
+const ChatHeader = () => {
   const { t } = useTranslation();
   const channels = useSelector((state) => state.channels);
   const channelMessages = useSelector(({ messages }) => Object.entries(messages)

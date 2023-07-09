@@ -12,7 +12,7 @@ import { hideModal } from '../slices/modalsSlice';
 import { channelNameValidation } from './validations';
 import SocketContext from '../context/SocketContext';
 
-function RenameChannelModal() {
+const RenameChannelModal = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const id = useSelector((state) => state.modals.renameChannel);

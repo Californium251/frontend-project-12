@@ -4,7 +4,7 @@ import React, { createContext, useState } from 'react';
 
 const AuthContext = createContext({});
 
-export function AuthProvider({ children }) {
+export const AuthProvider = ({ children }) => {
   const token = window.localStorage.getItem('token');
   const [auth, setAuth] = useState({ user: token || undefined });
 

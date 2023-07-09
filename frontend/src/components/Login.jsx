@@ -14,7 +14,7 @@ import { loginError } from '../slices/errorSlice';
 import { setName } from '../slices/userSlice';
 import AppHeader from './AppHeader';
 
-function Login() {
+const Login = () => {
   const { t } = useTranslation();
   const token = window.localStorage.getItem('token');
   const location = useLocation();

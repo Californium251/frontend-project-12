@@ -11,7 +11,7 @@ import { useTranslation } from 'react-i18next';
 import { hideModal } from '../slices/modalsSlice';
 import SocketContext from '../context/SocketContext';
 
-function RemoveChannelModal() {
+const RemoveChannelModal = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const onHide = () => {

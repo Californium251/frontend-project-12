@@ -4,7 +4,7 @@ import filter from 'leo-profanity';
 import Message from './Message';
 import 'react-toastify/dist/ReactToastify.css';
 
-function MessageBox() {
+const MessageBox = () => {
   useEffect(() => {
     filter.add(filter.getDictionary('ru'));
   }, []);

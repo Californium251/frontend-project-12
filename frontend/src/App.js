@@ -7,7 +7,7 @@ import Login from './components/Login';
 import SignUp from './components/SignUp';
 import RequireAuth from './components/RequireAuth';
 
-function App() {
+const App = () => {
   return (
     <React.StrictMode>
       <BrowserRouter>

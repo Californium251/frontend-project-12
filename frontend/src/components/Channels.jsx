@@ -9,7 +9,7 @@ import { useTranslation } from 'react-i18next';
 import { makeActive } from '../slices/channelSlice';
 import { showRemoveChannel, showRenameChannel } from '../slices/modalsSlice';
 
-function Channels() {
+const Channels = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const channels = useSelector((state) => state.channels.value);

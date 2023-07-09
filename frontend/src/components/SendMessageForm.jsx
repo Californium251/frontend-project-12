@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next';
 import SocketContext from '../context/SocketContext';
 import { newMessageValidation } from './validations';
 
-function SendMessageForm() {
+const SendMessageForm = () => {
   const channelId = useSelector((state) => state.channels.activeId);
   const messageInput = useRef(null);
   useEffect(() => {

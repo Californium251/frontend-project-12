@@ -2,7 +2,7 @@ import React from 'react';
 import { useLocation, Navigate } from 'react-router-dom';
 import Chat from './Chat';
 
-function RequireAuth() {
+const RequireAuth = () => {
   const location = useLocation();
   const token = window.localStorage.getItem('token');
 

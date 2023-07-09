@@ -5,7 +5,7 @@ import {
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
-function AppHeader() {
+const AppHeader = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const token = window.localStorage.getItem('token');
