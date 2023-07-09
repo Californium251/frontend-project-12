@@ -63,6 +63,6 @@ const Chat = () => {
       {modals.renameChannel ? <RenameChannelModal /> : null}
     </Container>
   );
-}
+};
 
 export default Chat;

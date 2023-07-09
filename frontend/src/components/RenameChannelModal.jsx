@@ -75,6 +75,6 @@ const RenameChannelModal = () => {
       </Modal.Body>
     </Modal>
   );
-}
+};
 
 export default RenameChannelModal;

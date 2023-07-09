@@ -51,6 +51,6 @@ const SendMessageForm = () => {
       </Form>
     </div>
   );
-}
+};
 
 export default SendMessageForm;

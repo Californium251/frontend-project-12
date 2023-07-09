@@ -26,6 +26,6 @@ const MessageBox = () => {
         ))}
     </div>
   );
-}
+};
 
 export default MessageBox;

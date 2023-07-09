@@ -16,6 +16,6 @@ const AddChannelButton = () => {
       <span className="visually-hidden">+</span>
     </button>
   );
-}
+};
 
 export default AddChannelButton;

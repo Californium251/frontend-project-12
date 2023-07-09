@@ -72,6 +72,6 @@ const NewChannelModal = () => {
       </Modal.Body>
     </Modal>
   );
-}
+};
 
 export default NewChannelModal;

@@ -7,19 +7,17 @@ import Login from './components/Login';
 import SignUp from './components/SignUp';
 import RequireAuth from './components/RequireAuth';
 
-const App = () => {
-  return (
-    <React.StrictMode>
-      <BrowserRouter>
-        <Routes>
-          <Route path="login" element={<Login />} />
-          <Route path="signup" element={<SignUp />} />
-          <Route path="/" element={<RequireAuth />} />
-        </Routes>
-        <ToastContainer />
-      </BrowserRouter>
-    </React.StrictMode>
-  );
-}
+const App = () => (
+  <React.StrictMode>
+    <BrowserRouter>
+      <Routes>
+        <Route path="login" element={<Login />} />
+        <Route path="signup" element={<SignUp />} />
+        <Route path="/" element={<RequireAuth />} />
+      </Routes>
+      <ToastContainer />
+    </BrowserRouter>
+  </React.StrictMode>
+);
 
 export default App;

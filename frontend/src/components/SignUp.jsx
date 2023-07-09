@@ -133,6 +133,6 @@ const SignUp = () => {
       </Container>
     </Container>
   );
-}
+};
 
 export default SignUp;

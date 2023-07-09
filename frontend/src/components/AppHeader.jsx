@@ -23,6 +23,6 @@ const AppHeader = () => {
       </Container>
     </Navbar>
   );
-}
+};
 
 export default AppHeader;

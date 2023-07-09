@@ -65,6 +65,6 @@ const Channels = () => {
       ))}
     </Nav>
   );
-}
+};
 
 export default Channels;
