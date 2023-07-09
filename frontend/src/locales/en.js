@@ -9,6 +9,7 @@ export default {
     renameChannel: 'Rename',
     loginHeader: 'Sign in',
     nicknameLabel: 'Nickname',
+    signUpNicknameLabel: 'Username',
     passwordLabel: 'Password',
     loginButton: 'Sign in',
     noAccount: 'No account?',

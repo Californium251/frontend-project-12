@@ -65,7 +65,7 @@ function SignUp() {
                   ? (
                     <Form onSubmit={formik.handleSubmit} className="col-12 col-md-6 mt-3 mt-mb-0">
                       <h1 className="text-center mb-4">{t('signUpFormHeader')}</h1>
-                      <FloatingLabel className="mb-3" label={t('nicknameLabel')}>
+                      <FloatingLabel className="mb-3" label={t('signUpNicknameLabel')}>
                         <Form.Control
                           type="text"
                           name="username"

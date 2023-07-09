@@ -13,6 +13,7 @@ export default {
     renameChannel: 'Переименовать',
     loginHeader: 'Войти',
     nicknameLabel: 'Ваш ник',
+    signUpNicknameLabel: 'Имя пользователя',
     passwordLabel: 'Пароль',
     loginButton: 'Войти',
     noAccount: 'Нет аккаунта?',
