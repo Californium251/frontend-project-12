@@ -6,7 +6,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 function MessageBox() {
   useEffect(() => {
-    filter.loadDictionary('ru');
+    filter.add(filter.getDictionary('ru'));
   }, []);
   const messages = useSelector((state) => state.messages);
   const activeChannelId = useSelector((state) => state.channels.activeId);
