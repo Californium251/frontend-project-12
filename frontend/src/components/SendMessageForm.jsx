@@ -8,7 +8,6 @@ import { newMessageValidation } from './validations';
 
 function SendMessageForm() {
   const channelId = useSelector((state) => state.channels.activeId);
-  const a = 1;
   const messageInput = useRef(null);
   useEffect(() => {
     messageInput.current.focus();
