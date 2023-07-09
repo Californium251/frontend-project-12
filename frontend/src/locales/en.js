@@ -15,7 +15,6 @@ export default {
     signupButton: 'Sign up',
     newChannel: 'Add channel',
     cancel: 'Cancel',
-    create: 'Create',
     removeChannelHeader: 'Remove channel',
     areYouSure: 'Are you sure?',
     remove: 'Remove',
