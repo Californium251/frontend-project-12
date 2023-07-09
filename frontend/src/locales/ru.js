@@ -43,5 +43,6 @@ export default {
     required: 'Обязательное поле',
     enterTheMessage: 'Введите сообщение...',
     newMessage: 'Новое сообщение',
+    manageChannel: 'Управление каналом',
   },
 };

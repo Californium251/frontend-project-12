@@ -38,5 +38,6 @@ export default {
     required: 'Required field',
     enterTheMessage: 'Enter the message...',
     newMessage: 'New message',
+    manageChannel: 'Channel management',
   },
 };

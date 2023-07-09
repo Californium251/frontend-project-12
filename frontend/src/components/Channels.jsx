@@ -41,7 +41,9 @@ function Channels() {
                     {name}
                   </span>
                 </Button>
-                <Dropdown.Toggle variant={+id === +activeId ? 'secondary' : 'light'} split />
+                <Dropdown.Toggle variant={+id === +activeId ? 'secondary' : 'light'} split>
+                  <span className="visually-hidden">{t('manageChannel')}</span>
+                </Dropdown.Toggle>
                 <Dropdown.Menu>
                   <Dropdown.Item onClick={onDelClick(id)} href="#">{t('removeChannel')}</Dropdown.Item>
                   <Dropdown.Item onClick={onRenameClick(id)} href="#">{t('renameChannel')}</Dropdown.Item>
