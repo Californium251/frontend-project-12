@@ -117,7 +117,7 @@ function SignUp() {
                         <Form.Control.Feedback type="invalid" tooltip>
                           {t(formik.errors.passwordRepeat)}
                         </Form.Control.Feedback>
-                        <label htmlFor="password">{t('passwordConfirmation')}</label>
+                        <label htmlFor="passwordRepeat">{t('passwordConfirmation')}</label>
                       </Form.Floating>
                       <Form.Control.Feedback type="invalid" tooltip>
                         {t(error)}
