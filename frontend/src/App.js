@@ -5,6 +5,7 @@ import { ToastContainer } from 'react-toastify';
 import Login from './components/Login';
 import SignUp from './components/SignUp';
 import RequireAuth from './components/RequireAuth';
+import './App.css';
 
 const App = () => (
   <React.StrictMode>
