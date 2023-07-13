@@ -17,7 +17,7 @@ const init = async () => {
   const Socket = io('/');
   const i18n = i18next.createInstance();
   const rollbarConfig = {
-    accessToken: 'fedb5b29e6cc406f83568bc1c6e5d674',
+    accessToken: process.env.REACT_APP_ROLLBAR_TOKEN,
     environment: 'testenv',
   };
 
