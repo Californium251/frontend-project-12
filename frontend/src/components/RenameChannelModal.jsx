@@ -41,6 +41,8 @@ const RenameChannelModal = () => {
         dispatch(hideModal('renameChannel'));
       }).then(() => {
         toast.success(t('channelRenamed'));
+      }).catch((e) => {
+        console.log(e);
       });
     },
   });

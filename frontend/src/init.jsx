@@ -35,18 +35,16 @@ const init = async () => {
   const renameChannelCallback = (data) => {
     store.dispatch(renameChannel(data));
   };
-  const newMessageEmit = async (data) => {
-    Socket.emit('newMessage', data);
+  const promisify = (asyncFn) => (...args) => {
+    const promise = new Promise((resolve, reject) => {
+      asyncFn.call(Socket, ...args, (data, err) => (err ? reject(err) : resolve(data)));
+    });
+    return promise;
   };
-  const newChannelEmit = async (data) => {
-    Socket.emit('newChannel', data);
-  };
-  const removeChannelEmit = async (data) => {
-    Socket.emit('removeChannel', data);
-  };
-  const renameChannelEmit = async (data) => {
-    Socket.emit('renameChannel', data);
-  };
+  const newMessageEmit = (data) => promisify(Socket.emit)('newMessage', data);
+  const newChannelEmit = (data) => promisify(Socket.emit)('newChannel', data);
+  const removeChannelEmit = (data) => promisify(Socket.emit)('removeChannel', data);
+  const renameChannelEmit = (data) => promisify(Socket.emit)('renameChannel', data);
   Socket.on('newMessage', newMessageCallback);
   Socket.on('newChannel', newChannelCallback);
   Socket.on('removeChannel', removeChannelCallback);

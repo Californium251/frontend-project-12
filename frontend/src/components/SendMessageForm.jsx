@@ -18,7 +18,7 @@ const SendMessageForm = () => {
   const formik = useFormik({
     initialValues: { body: '' },
     validationSchema: newMessageValidation,
-    onSubmit: async (values, { resetForm }) => {
+    onSubmit: (values, { resetForm }) => {
       const newValues = {
         body: values.body,
         channelId,
@@ -26,6 +26,8 @@ const SendMessageForm = () => {
       };
       newMessageEmit(newValues).then(() => {
         resetForm();
+      }).catch((e) => {
+        console.log(e);
       });
     },
   });

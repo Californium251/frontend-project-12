@@ -38,6 +38,8 @@ const NewChannelModal = () => {
       }).then(() => {
         dispatch(hideModal('newChannel'));
         toast.success(t('channelCreated'));
+      }).catch((e) => {
+        console.log(e);
       });
     },
   });

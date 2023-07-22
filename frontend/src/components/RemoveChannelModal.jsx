@@ -25,6 +25,8 @@ const RemoveChannelModal = () => {
       removeChannelEmit(values).then(() => {
         dispatch(hideModal('removeChannel'));
         toast.success(t('channelRemoved'));
+      }).catch((e) => {
+        console.log(e);
       });
     },
   });
