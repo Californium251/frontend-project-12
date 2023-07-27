@@ -1,16 +1,18 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import {
   Navbar, Container, Button,
 } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import AuthContext from '../context/AuthProvider';
 
 const AppHeader = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const token = window.localStorage.getItem('token');
+  const { auth, unSetAuth } = useContext(AuthContext);
+  const { token } = auth;
   const signOut = () => {
-    window.localStorage.removeItem('token');
+    unSetAuth();
     navigate('/login');
   };
   return (

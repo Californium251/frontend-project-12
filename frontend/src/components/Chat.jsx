@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useContext, useEffect } from 'react';
 import axios from 'axios';
 import { useSelector, useDispatch } from 'react-redux';
 import {
@@ -17,14 +17,16 @@ import AddChannelButton from './AddChannelButton';
 import RemoveChannelModal from './RemoveChannelModal';
 import RenameChannelModal from './RenameChannelModal';
 import AppHeader from './AppHeader';
+import AuthContext from '../context/AuthProvider';
 
 const Chat = () => {
   const { t } = useTranslation();
   const modals = useSelector((state) => state.modals);
+  const { auth } = useContext(AuthContext);
   const dispatch = useDispatch();
   useEffect(() => {
     const getChats = async () => {
-      const token = window.localStorage.getItem('token');
+      const { token } = auth;
       const config = {
         headers: {
           Authorization: `Bearer ${token}`,

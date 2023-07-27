@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useContext, useEffect, useRef } from 'react';
 import { useNavigate, useLocation, Navigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import axios from 'axios';
@@ -12,10 +12,11 @@ import { signUpError } from '../slices/errorSlice';
 import { setName } from '../slices/userSlice';
 import image from '../img/signup.jpeg';
 import AppHeader from './AppHeader';
+import AuthContext from '../context/AuthProvider';
 
 const SignUp = () => {
   const { t } = useTranslation();
-  const token = window.localStorage.getItem('token');
+  const { auth, setAuthentication } = useContext(AuthContext);
   const location = useLocation();
   const navigate = useNavigate();
   const error = useSelector((state) => state.errors.signUpError);
@@ -38,10 +39,13 @@ const SignUp = () => {
     }),
     onSubmit: async (values) => {
       try {
-        const res = await axios.post('/api/v1/signup', { username: values.username, password: values.password });
+        const { username, password } = values;
+        const res = await axios.post('/api/v1/signup', { username, password });
         if (res.status === 201) {
-          window.localStorage.setItem('token', res.data.token);
-          window.localStorage.setItem('username', values.username);
+          setAuthentication({
+            token: res.data.token,
+            username,
+          });
           dispatch(signUpError(null));
           dispatch(setName(values.username));
           navigate('/');
@@ -62,7 +66,7 @@ const SignUp = () => {
                 <Col xs="12" md="6" className="d-flex align-items-center justify-content-center">
                   <Image src={image} roundedCircle />
                 </Col>
-                {!token
+                {!auth.token
                   ? (
                     <Form onSubmit={formik.handleSubmit} className="col-12 col-md-6 mt-3 mt-mb-0">
                       <h1 className="text-center mb-4">{t('signUpFormHeader')}</h1>

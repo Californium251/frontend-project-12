@@ -5,6 +5,7 @@ import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import SocketContext from '../context/SocketContext';
 import { newMessageValidation } from './validations';
+import AuthContext from '../context/AuthProvider';
 
 const SendMessageForm = () => {
   const channelId = useSelector((state) => state.channels.activeId);
@@ -13,7 +14,8 @@ const SendMessageForm = () => {
     messageInput.current.focus();
   }, [channelId]);
   const { t } = useTranslation();
-  const username = window.localStorage.getItem('username');
+  const { auth } = useContext(AuthContext);
+  const { username } = auth;
   const { newMessageEmit } = useContext(SocketContext);
   const formik = useFormik({
     initialValues: { body: '' },

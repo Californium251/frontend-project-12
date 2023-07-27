@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import React from 'react';
+import React, { useContext } from 'react';
 import { useFormik } from 'formik';
 import axios from 'axios';
 import { useNavigate, useLocation, Navigate } from 'react-router-dom';
@@ -13,10 +13,11 @@ import { loginValidation } from './validations';
 import { loginError } from '../slices/errorSlice';
 import { setName } from '../slices/userSlice';
 import AppHeader from './AppHeader';
+import AuthContext from '../context/AuthProvider';
 
 const Login = () => {
   const { t } = useTranslation();
-  const token = window.localStorage.getItem('token');
+  const { auth, setAuthentication } = useContext(AuthContext);
   const location = useLocation();
   const navigate = useNavigate();
   const error = useSelector((state) => state.errors.loginError);
@@ -31,8 +32,10 @@ const Login = () => {
       try {
         const res = await axios.post('/api/v1/login', values);
         if (res.status === 200) {
-          window.localStorage.setItem('token', res.data.token);
-          window.localStorage.setItem('username', values.username);
+          setAuthentication({
+            token: res.data.token,
+            username: values.username,
+          });
           dispatch(setName(values.username));
           dispatch(loginError(null));
           navigate('/');
@@ -53,7 +56,7 @@ const Login = () => {
                 <Col xs="12" md="6" className="d-flex align-items-center justify-content-center">
                   <Image src={image} roundedCircle />
                 </Col>
-                {!token
+                {!auth.token
                   ? (
                     <Form className="col-12 col-md-6 mt-3 mt-mb-0" onSubmit={formik.handleSubmit}>
                       <h1 className="text-center mb-4">{t('loginHeader')}</h1>

@@ -12,6 +12,7 @@ import {
 import { newMessage } from './slices/messageSlice';
 import store from './slices/index';
 import SocketContext from './context/SocketContext';
+import { AuthProvider } from './context/AuthProvider';
 
 const init = async () => {
   const Socket = io('/');
@@ -59,16 +60,18 @@ const init = async () => {
   return (
     <RollbarProvider config={rollbarConfig}>
       <ErrorBoundary>
-        <Provider store={store}>
-          <SocketContext.Provider value={{
-            newMessageEmit, newChannelEmit, removeChannelEmit, renameChannelEmit,
-          }}
-          >
-            <I18nextProvider i18={i18n}>
-              <App />
-            </I18nextProvider>
-          </SocketContext.Provider>
-        </Provider>
+        <AuthProvider>
+          <Provider store={store}>
+            <SocketContext.Provider value={{
+              newMessageEmit, newChannelEmit, removeChannelEmit, renameChannelEmit,
+            }}
+            >
+              <I18nextProvider i18={i18n}>
+                <App />
+              </I18nextProvider>
+            </SocketContext.Provider>
+          </Provider>
+        </AuthProvider>
       </ErrorBoundary>
     </RollbarProvider>
   );

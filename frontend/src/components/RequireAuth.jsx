@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useLocation, Navigate } from 'react-router-dom';
 import Chat from './Chat';
+import AuthContext from '../context/AuthProvider';
 
 const RequireAuth = () => {
   const location = useLocation();
-  const token = window.localStorage.getItem('token');
+  const { auth } = useContext(AuthContext);
+  const { token } = auth;
 
   return (
     token
