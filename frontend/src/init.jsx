@@ -7,11 +7,11 @@ import { Provider as RollbarProvider, ErrorBoundary } from '@rollbar/react';
 import App from './App';
 import resources from './locales/index';
 import {
-  newChannel, removeChannel, renameChannel,
+  addChannel, deleteChannel, changeChannelName,
 } from './slices/channelSlice';
-import { newMessage } from './slices/messageSlice';
+import { sendMessage } from './slices/messageSlice';
 import store from './slices/index';
-import SocketContext from './context/SocketContext';
+import ApiContext from './context/ApiContext';
 import { AuthProvider } from './context/AuthProvider';
 
 const init = async () => {
@@ -23,18 +23,18 @@ const init = async () => {
   };
 
   const newMessageCallback = (socket) => {
-    store.dispatch(newMessage(socket));
+    store.dispatch(sendMessage(socket));
   };
   const newChannelCallback = (socket) => {
     if (socket.name) {
-      store.dispatch(newChannel(socket));
+      store.dispatch(addChannel(socket));
     }
   };
   const removeChannelCallback = ({ id }) => {
-    store.dispatch(removeChannel(id));
+    store.dispatch(deleteChannel(id));
   };
   const renameChannelCallback = (data) => {
-    store.dispatch(renameChannel(data));
+    store.dispatch(changeChannelName(data));
   };
   const promisify = (asyncFn) => (...args) => {
     const promise = new Promise((resolve, reject) => {
@@ -42,10 +42,10 @@ const init = async () => {
     });
     return promise;
   };
-  const newMessageEmit = (data) => promisify(Socket.emit)('newMessage', data);
-  const newChannelEmit = (data) => promisify(Socket.emit)('newChannel', data);
-  const removeChannelEmit = (data) => promisify(Socket.emit)('removeChannel', data);
-  const renameChannelEmit = (data) => promisify(Socket.emit)('renameChannel', data);
+  const newMessage = (data) => promisify(Socket.emit)('newMessage', data);
+  const newChannel = (data) => promisify(Socket.emit)('newChannel', data);
+  const removeChannel = (data) => promisify(Socket.emit)('removeChannel', data);
+  const renameChannel = (data) => promisify(Socket.emit)('renameChannel', data);
   Socket.on('newMessage', newMessageCallback);
   Socket.on('newChannel', newChannelCallback);
   Socket.on('removeChannel', removeChannelCallback);
@@ -62,14 +62,14 @@ const init = async () => {
       <ErrorBoundary>
         <AuthProvider>
           <Provider store={store}>
-            <SocketContext.Provider value={{
-              newMessageEmit, newChannelEmit, removeChannelEmit, renameChannelEmit,
+            <ApiContext.Provider value={{
+              newMessage, newChannel, removeChannel, renameChannel,
             }}
             >
               <I18nextProvider i18={i18n}>
                 <App />
               </I18nextProvider>
-            </SocketContext.Provider>
+            </ApiContext.Provider>
           </Provider>
         </AuthProvider>
       </ErrorBoundary>

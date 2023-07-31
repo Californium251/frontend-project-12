@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useNavigate, useLocation, Navigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import axios from 'axios';
@@ -9,14 +9,13 @@ import { useFormik } from 'formik';
 import { useTranslation } from 'react-i18next';
 import { signupValidation } from './validations';
 import { signUpError } from '../slices/errorSlice';
-import { setName } from '../slices/userSlice';
 import image from '../img/signup.jpeg';
 import AppHeader from './AppHeader';
-import AuthContext from '../context/AuthProvider';
+import useAuth from '../hooks/useAuth';
 
 const SignUp = () => {
   const { t } = useTranslation();
-  const { auth, setAuthentication } = useContext(AuthContext);
+  const { auth, login } = useAuth();
   const location = useLocation();
   const navigate = useNavigate();
   const error = useSelector((state) => state.errors.signUpError);
@@ -42,12 +41,8 @@ const SignUp = () => {
         const { username, password } = values;
         const res = await axios.post('/api/v1/signup', { username, password });
         if (res.status === 201) {
-          setAuthentication({
-            token: res.data.token,
-            username,
-          });
+          login(res.data);
           dispatch(signUpError(null));
-          dispatch(setName(values.username));
           navigate('/');
         }
       } catch (err) {

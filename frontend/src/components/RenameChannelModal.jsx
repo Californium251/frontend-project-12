@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import React, { useRef, useContext, useEffect } from 'react';
+import React, { useRef, useEffect } from 'react';
 import {
   Form, Modal, FormGroup, Button,
 } from 'react-bootstrap';
@@ -10,14 +10,14 @@ import { toast } from 'react-toastify';
 import { useTranslation } from 'react-i18next';
 import { hideModal } from '../slices/modalsSlice';
 import { channelNameValidation } from './validations';
-import SocketContext from '../context/SocketContext';
+import useApi from '../hooks/useApi';
 
 const RenameChannelModal = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const id = useSelector((state) => state.modals.renameChannel);
   const initialName = useSelector((state) => state.channels.value[id].name);
-  const { renameChannelEmit } = useContext(SocketContext);
+  const { renameChannel } = useApi();
   const onHide = () => {
     dispatch(hideModal('renameChannel'));
   };
@@ -37,7 +37,7 @@ const RenameChannelModal = () => {
         name: values.name,
         removable: true,
       };
-      renameChannelEmit(newVals).then(() => {
+      renameChannel(newVals).then(() => {
         dispatch(hideModal('renameChannel'));
       }).then(() => {
         toast.success(t('channelRenamed'));

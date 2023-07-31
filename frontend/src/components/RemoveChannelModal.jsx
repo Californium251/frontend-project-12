@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import React, { useContext } from 'react';
+import React from 'react';
 import {
   Modal, Form, FormGroup, Button,
 } from 'react-bootstrap';
@@ -9,20 +9,25 @@ import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import { useTranslation } from 'react-i18next';
 import { hideModal } from '../slices/modalsSlice';
-import SocketContext from '../context/SocketContext';
+import useApi from '../hooks/useApi';
+import { makeActive } from '../slices/channelSlice';
 
 const RemoveChannelModal = () => {
   const { t } = useTranslation();
+  const activeId = useSelector(({ channels }) => channels.activeId);
   const dispatch = useDispatch();
   const onHide = () => {
     dispatch(hideModal('removeChannel'));
   };
-  const { removeChannelEmit } = useContext(SocketContext);
+  const { removeChannel } = useApi();
   const id = useSelector((state) => state.modals.removeChannel);
   const formik = useFormik({
     initialValues: { id },
     onSubmit: (values) => {
-      removeChannelEmit(values).then(() => {
+      if (+activeId === +id) {
+        dispatch(makeActive(1));
+      }
+      removeChannel(values).then(() => {
         dispatch(hideModal('removeChannel'));
         toast.success(t('channelRemoved'));
       }).catch((e) => {

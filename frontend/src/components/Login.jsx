@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import React, { useContext } from 'react';
+import React from 'react';
 import { useFormik } from 'formik';
 import axios from 'axios';
 import { useNavigate, useLocation, Navigate } from 'react-router-dom';
@@ -11,13 +11,12 @@ import { useTranslation } from 'react-i18next';
 import image from '../img/download.jpeg';
 import { loginValidation } from './validations';
 import { loginError } from '../slices/errorSlice';
-import { setName } from '../slices/userSlice';
 import AppHeader from './AppHeader';
-import AuthContext from '../context/AuthProvider';
+import useAuth from '../hooks/useAuth';
 
 const Login = () => {
   const { t } = useTranslation();
-  const { auth, setAuthentication } = useContext(AuthContext);
+  const { auth, login } = useAuth();
   const location = useLocation();
   const navigate = useNavigate();
   const error = useSelector((state) => state.errors.loginError);
@@ -32,11 +31,7 @@ const Login = () => {
       try {
         const res = await axios.post('/api/v1/login', values);
         if (res.status === 200) {
-          setAuthentication({
-            token: res.data.token,
-            username: values.username,
-          });
-          dispatch(setName(values.username));
+          login(res.data);
           dispatch(loginError(null));
           navigate('/');
         }

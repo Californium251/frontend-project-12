@@ -1,11 +1,11 @@
-import React, { useContext, useEffect, useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useFormik } from 'formik';
 import { Form } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
-import SocketContext from '../context/SocketContext';
 import { newMessageValidation } from './validations';
-import AuthContext from '../context/AuthProvider';
+import useAuth from '../hooks/useAuth';
+import useApi from '../hooks/useApi';
 
 const SendMessageForm = () => {
   const channelId = useSelector((state) => state.channels.activeId);
@@ -14,9 +14,9 @@ const SendMessageForm = () => {
     messageInput.current.focus();
   }, [channelId]);
   const { t } = useTranslation();
-  const { auth } = useContext(AuthContext);
+  const { auth } = useAuth();
   const { username } = auth;
-  const { newMessageEmit } = useContext(SocketContext);
+  const { newMessage } = useApi();
   const formik = useFormik({
     initialValues: { body: '' },
     validationSchema: newMessageValidation,
@@ -26,7 +26,7 @@ const SendMessageForm = () => {
         channelId,
         username,
       };
-      newMessageEmit(newValues).then(() => {
+      newMessage(newValues).then(() => {
         resetForm();
       }).catch((e) => {
         console.log(e);

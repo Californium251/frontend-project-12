@@ -8,7 +8,7 @@ const messageSlice = createSlice({
   name: 'messages',
   initialState,
   reducers: {
-    newMessage: (state, { payload }) => {
+    sendMessage: (state, { payload }) => {
       const {
         id,
         body,
@@ -31,6 +31,6 @@ const messageSlice = createSlice({
   },
 });
 
-export const { newMessage, addMessages } = messageSlice.actions;
+export const { sendMessage, addMessages } = messageSlice.actions;
 
 export default messageSlice.reducer;

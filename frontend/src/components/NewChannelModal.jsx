@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import React, { useContext, useRef, useEffect } from 'react';
+import React, { useRef, useEffect } from 'react';
 import {
   Modal, Form, FormGroup, Button,
 } from 'react-bootstrap';
@@ -10,7 +10,7 @@ import { toast } from 'react-toastify';
 import { useTranslation } from 'react-i18next';
 import { hideModal } from '../slices/modalsSlice';
 import { channelNameValidation } from './validations';
-import SocketContext from '../context/SocketContext';
+import useApi from '../hooks/useApi';
 
 const NewChannelModal = () => {
   const { t } = useTranslation();
@@ -21,7 +21,7 @@ const NewChannelModal = () => {
   const channelNames = useSelector(({ channels }) => Object
     .values(channels.value)
     .map(({ name }) => name));
-  const { newChannelEmit } = useContext(SocketContext);
+  const { newChannel } = useApi();
   const nameField = useRef(null);
   useEffect(() => {
     nameField.current.focus();
@@ -32,7 +32,7 @@ const NewChannelModal = () => {
     },
     validationSchema: channelNameValidation(channelNames),
     onSubmit: ({ name }) => {
-      newChannelEmit({
+      newChannel({
         name,
         removable: true,
       }).then(() => {

@@ -1,11 +1,11 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { useLocation, Navigate } from 'react-router-dom';
 import Chat from './Chat';
-import AuthContext from '../context/AuthProvider';
+import useAuth from '../hooks/useAuth';
 
 const RequireAuth = () => {
   const location = useLocation();
-  const { auth } = useContext(AuthContext);
+  const { auth } = useAuth();
   const { token } = auth;
 
   return (

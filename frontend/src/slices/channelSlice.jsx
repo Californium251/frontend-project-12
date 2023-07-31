@@ -20,14 +20,14 @@ const channelSclice = createSlice({
     makeActive: (state, { payload }) => {
       state.activeId = payload;
     },
-    newChannel: (state, { payload }) => {
+    addChannel: (state, { payload }) => {
       const { id, name, removable } = payload;
       state.value[id] = { name, removable };
     },
-    removeChannel: (state, { payload }) => {
+    deleteChannel: (state, { payload }) => {
       delete state.value[payload];
     },
-    renameChannel: (state, { payload }) => {
+    changeChannelName: (state, { payload }) => {
       const { id, name } = payload;
       state.value[id].name = name;
     },
@@ -38,7 +38,7 @@ const channelSclice = createSlice({
 });
 
 export const {
-  addChannels, makeActive, newChannel, removeChannel, renameChannel, setChannelToBeChanged,
+  addChannels, makeActive, addChannel, deleteChannel, changeChannelName, setChannelToBeChanged,
 } = channelSclice.actions;
 
 export default channelSclice.reducer;
