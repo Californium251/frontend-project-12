@@ -6,9 +6,7 @@ import { io } from 'socket.io-client';
 import { Provider as RollbarProvider, ErrorBoundary } from '@rollbar/react';
 import App from './App';
 import resources from './locales/index';
-import {
-  addChannel, deleteChannel, changeChannelName,
-} from './slices/channelSlice';
+import { channelSliceActoins } from './slices/channelSlice';
 import { sendMessage } from './slices/messageSlice';
 import store from './slices/index';
 import ApiContext from './context/ApiContext';
@@ -27,14 +25,14 @@ const init = async () => {
   };
   const newChannelCallback = (socket) => {
     if (socket.name) {
-      store.dispatch(addChannel(socket));
+      store.dispatch(channelSliceActoins.newChannel(socket));
     }
   };
   const removeChannelCallback = ({ id }) => {
-    store.dispatch(deleteChannel(id));
+    store.dispatch(channelSliceActoins.removeChannel(id));
   };
   const renameChannelCallback = (data) => {
-    store.dispatch(changeChannelName(data));
+    store.dispatch(channelSliceActoins.renameName(data));
   };
   const promisify = (asyncFn) => (...args) => {
     const promise = new Promise((resolve, reject) => {
@@ -58,22 +56,24 @@ const init = async () => {
     });
 
   return (
-    <RollbarProvider config={rollbarConfig}>
-      <ErrorBoundary>
-        <AuthProvider>
-          <Provider store={store}>
-            <ApiContext.Provider value={{
-              newMessage, newChannel, removeChannel, renameChannel,
-            }}
-            >
-              <I18nextProvider i18={i18n}>
-                <App />
-              </I18nextProvider>
-            </ApiContext.Provider>
-          </Provider>
-        </AuthProvider>
-      </ErrorBoundary>
-    </RollbarProvider>
+    <React.StrictMode>
+      <RollbarProvider config={rollbarConfig}>
+        <ErrorBoundary>
+          <AuthProvider>
+            <Provider store={store}>
+              <ApiContext.Provider value={{
+                newMessage, newChannel, removeChannel, renameChannel,
+              }}
+              >
+                <I18nextProvider i18={i18n}>
+                  <App />
+                </I18nextProvider>
+              </ApiContext.Provider>
+            </Provider>
+          </AuthProvider>
+        </ErrorBoundary>
+      </RollbarProvider>
+    </React.StrictMode>
   );
 };
 

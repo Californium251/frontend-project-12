@@ -1,16 +1,14 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import React from 'react';
+import React, { useState } from 'react';
 import { useFormik } from 'formik';
 import axios from 'axios';
 import { useNavigate, useLocation, Navigate } from 'react-router-dom';
 import {
   Container, Row, Col, Card, Image, Button, Form,
 } from 'react-bootstrap';
-import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import image from '../img/download.jpeg';
 import { loginValidation } from './validations';
-import { loginError } from '../slices/errorSlice';
 import AppHeader from './AppHeader';
 import useAuth from '../hooks/useAuth';
 
@@ -19,8 +17,7 @@ const Login = () => {
   const { auth, login } = useAuth();
   const location = useLocation();
   const navigate = useNavigate();
-  const error = useSelector((state) => state.errors.loginError);
-  const dispatch = useDispatch();
+  const [error, setError] = useState(null);
   const formik = useFormik({
     initialValues: {
       username: '',
@@ -30,13 +27,17 @@ const Login = () => {
     onSubmit: async (values) => {
       try {
         const res = await axios.post('/api/v1/login', values);
-        if (res.status === 200) {
-          login(res.data);
-          dispatch(loginError(null));
-          navigate('/');
-        }
+        login(res.data);
+        setError(null);
+        navigate('/');
       } catch (err) {
-        dispatch(loginError(err.code));
+        if (!err.isAxiosError) {
+          setError('UNKNOWN_ERR');
+        } else if (err.code === 'ERR_BAD_REQUEST') {
+          setError(err.code);
+        } else {
+          setError('ERR_NETWORK');
+        }
       }
     },
   });

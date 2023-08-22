@@ -1,6 +1,5 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useNavigate, useLocation, Navigate } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
 import axios from 'axios';
 import {
   Container, Row, Col, Card, Form, Button, Image,
@@ -8,7 +7,6 @@ import {
 import { useFormik } from 'formik';
 import { useTranslation } from 'react-i18next';
 import { signupValidation } from './validations';
-import { signUpError } from '../slices/errorSlice';
 import image from '../img/signup.jpeg';
 import AppHeader from './AppHeader';
 import useAuth from '../hooks/useAuth';
@@ -18,8 +16,7 @@ const SignUp = () => {
   const { auth, login } = useAuth();
   const location = useLocation();
   const navigate = useNavigate();
-  const error = useSelector((state) => state.errors.signUpError);
-  const dispatch = useDispatch();
+  const [error, setError] = useState(null);
   const usernameInput = useRef(null);
   useEffect(() => {
     usernameInput.current.focus();
@@ -31,22 +28,24 @@ const SignUp = () => {
       passwordRepeat: '',
     },
     validationSchema: signupValidation({
-      username: t('usernameLength'),
-      password: t('passwordLength'),
-      passwordsMustMatch: t('passwordsMustMatch'),
-      required: t('required'),
+      username: 'usernameLength',
+      password: 'passwordLength',
+      passwordsMustMatch: 'passwordsMustMatch',
+      required: 'required',
     }),
     onSubmit: async (values) => {
       try {
         const { username, password } = values;
         const res = await axios.post('/api/v1/signup', { username, password });
-        if (res.status === 201) {
-          login(res.data);
-          dispatch(signUpError(null));
-          navigate('/');
-        }
+        login(res.data);
+        setError(null);
+        navigate('/');
       } catch (err) {
-        dispatch(signUpError(err.message));
+        if (!err.isAxiosError) {
+          setError('UNKNOWN_ERR');
+        } else {
+          setError(err.message);
+        }
       }
     },
   });

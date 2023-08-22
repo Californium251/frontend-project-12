@@ -8,16 +8,14 @@ import RequireAuth from './components/RequireAuth';
 import './App.css';
 
 const App = () => (
-  <React.StrictMode>
-    <BrowserRouter>
-      <Routes>
-        <Route path="login" element={<Login />} />
-        <Route path="signup" element={<SignUp />} />
-        <Route path="/" element={<RequireAuth />} />
-      </Routes>
-      <ToastContainer />
-    </BrowserRouter>
-  </React.StrictMode>
+  <BrowserRouter>
+    <Routes>
+      <Route path="login" element={<Login />} />
+      <Route path="signup" element={<SignUp />} />
+      <Route path="/" element={<RequireAuth />} />
+    </Routes>
+    <ToastContainer />
+  </BrowserRouter>
 );
 
 export default App;

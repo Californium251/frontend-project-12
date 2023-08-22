@@ -10,11 +10,9 @@ import { toast } from 'react-toastify';
 import { useTranslation } from 'react-i18next';
 import { hideModal } from '../slices/modalsSlice';
 import useApi from '../hooks/useApi';
-import { makeActive } from '../slices/channelSlice';
 
 const RemoveChannelModal = () => {
   const { t } = useTranslation();
-  const activeId = useSelector(({ channels }) => channels.activeId);
   const dispatch = useDispatch();
   const onHide = () => {
     dispatch(hideModal('removeChannel'));
@@ -24,9 +22,6 @@ const RemoveChannelModal = () => {
   const formik = useFormik({
     initialValues: { id },
     onSubmit: (values) => {
-      if (+activeId === +id) {
-        dispatch(makeActive(1));
-      }
       removeChannel(values).then(() => {
         dispatch(hideModal('removeChannel'));
         toast.success(t('channelRemoved'));

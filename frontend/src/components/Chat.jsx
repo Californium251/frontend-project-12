@@ -5,7 +5,7 @@ import {
   Container, Row, Col,
 } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
-import { addChannels, makeActive } from '../slices/channelSlice';
+import { channelSliceActoins } from '../slices/channelSlice';
 import { addMessages } from '../slices/messageSlice';
 import 'bootstrap';
 import Channels from './Channels';
@@ -33,8 +33,8 @@ const Chat = () => {
         },
       };
       const res = await axios.get('/api/v1/data', config);
-      dispatch(addChannels(res.data.channels));
-      dispatch(makeActive(res.data.currentChannelId));
+      dispatch(channelSliceActoins.addChannels(res.data.channels));
+      dispatch(channelSliceActoins.makeActive(res.data.currentChannelId));
       dispatch(addMessages(res.data.messages));
     };
     getChats();

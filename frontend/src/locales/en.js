@@ -31,6 +31,7 @@ export default {
     channelRemoved: 'Channel removed',
     ERR_BAD_REQUEST: 'Incorrect user name or password',
     ERR_NETWORK: 'Connection error',
+    UNKNOWN_ERR: 'Uknown error',
     passwordsMustMatch: 'Passwords must match',
     usernameLength: 'From 3 to 20 characters',
     passwordLength: 'At least 6 characters',

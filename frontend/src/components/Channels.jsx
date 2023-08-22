@@ -6,7 +6,7 @@ import {
   Button, ButtonGroup, Dropdown, Nav,
 } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
-import { makeActive } from '../slices/channelSlice';
+import { channelSliceActoins } from '../slices/channelSlice';
 import { showRemoveChannel, showRenameChannel } from '../slices/modalsSlice';
 
 const Channels = () => {
@@ -15,7 +15,7 @@ const Channels = () => {
   const channels = useSelector((state) => state.channels.value);
   const activeId = useSelector((state) => state.channels.activeId);
   const onClick = (channelId) => () => {
-    dispatch(makeActive(+channelId));
+    dispatch(channelSliceActoins.makeActive(+channelId));
   };
   const onDelClick = (id) => () => {
     dispatch(showRemoveChannel(id));

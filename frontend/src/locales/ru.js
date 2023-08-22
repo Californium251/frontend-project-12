@@ -36,6 +36,7 @@ export default {
     channelRemoved: 'Канал удалён',
     ERR_BAD_REQUEST: 'Неверные имя пользователя или пароль',
     ERR_NETWORK: 'Ошибка соединения',
+    UNKNOWN_ERR: 'Неизвестная ошибка',
     passwordsMustMatch: 'Пароли должны совпадать',
     usernameLength: 'От 3 до 20 символов',
     passwordLength: 'Не менее 6 символов',
