@@ -15,7 +15,7 @@ const RemoveChannelModal = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const onHide = () => {
-    dispatch(hideModal('removeChannel'));
+    dispatch(hideModal({ modal: 'removeChannel' }));
   };
   const { removeChannel } = useApi();
   const id = useSelector((state) => state.modals.removeChannel);
@@ -23,7 +23,7 @@ const RemoveChannelModal = () => {
     initialValues: { id },
     onSubmit: (values) => {
       removeChannel(values).then(() => {
-        dispatch(hideModal('removeChannel'));
+        dispatch(hideModal({ modal: 'removeChannel' }));
         toast.success(t('channelRemoved'));
       }).catch((e) => {
         console.log(e);

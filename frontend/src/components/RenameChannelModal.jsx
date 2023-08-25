@@ -19,7 +19,7 @@ const RenameChannelModal = () => {
   const initialName = useSelector((state) => state.channels.value[id].name);
   const { renameChannel } = useApi();
   const onHide = () => {
-    dispatch(hideModal('renameChannel'));
+    dispatch(hideModal({ modal: 'renameChannel' }));
   };
   const channelNames = useSelector(({ channels }) => Object
     .values(channels.value)
@@ -38,7 +38,7 @@ const RenameChannelModal = () => {
         removable: true,
       };
       renameChannel(newVals).then(() => {
-        dispatch(hideModal('renameChannel'));
+        dispatch(hideModal({ modal: 'renameChannel' }));
       }).then(() => {
         toast.success(t('channelRenamed'));
       }).catch((e) => {

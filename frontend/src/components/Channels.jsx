@@ -7,7 +7,7 @@ import {
 } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { channelSliceActoins } from '../slices/channelSlice';
-import { showRemoveChannel, showRenameChannel } from '../slices/modalsSlice';
+import { showModal } from '../slices/modalsSlice';
 
 const Channels = () => {
   const { t } = useTranslation();
@@ -18,10 +18,10 @@ const Channels = () => {
     dispatch(channelSliceActoins.makeActive(+channelId));
   };
   const onDelClick = (id) => () => {
-    dispatch(showRemoveChannel(id));
+    dispatch(showModal({ modal: 'removeChannel', data: id }));
   };
   const onRenameClick = (id) => () => {
-    dispatch(showRenameChannel(id));
+    dispatch(showModal({ modal: 'renameChannel', data: id }));
   };
   return (
     <Nav variant="pills" align="start" as="ul">

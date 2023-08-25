@@ -18,6 +18,7 @@ import RemoveChannelModal from './RemoveChannelModal';
 import RenameChannelModal from './RenameChannelModal';
 import AppHeader from './AppHeader';
 import useAuth from '../hooks/useAuth';
+import pageAddresses from '../routes/index';
 
 const Chat = () => {
   const { t } = useTranslation();
@@ -32,10 +33,18 @@ const Chat = () => {
           Authorization: `Bearer ${token}`,
         },
       };
-      const res = await axios.get('/api/v1/data', config);
-      dispatch(channelSliceActoins.addChannels(res.data.channels));
-      dispatch(channelSliceActoins.makeActive(res.data.currentChannelId));
-      dispatch(addMessages(res.data.messages));
+      try {
+        const res = await axios.get(pageAddresses.initialData, config);
+        dispatch(channelSliceActoins.addChannels(res.data.channels));
+        dispatch(channelSliceActoins.makeActive(res.data.currentChannelId));
+        dispatch(addMessages(res.data.messages));
+      } catch (err) {
+        if (!err.isAxiosError) {
+          console.log('unknown error');
+        } else {
+          console.log('network error');
+        }
+      }
     };
     getChats();
   }, [dispatch]);

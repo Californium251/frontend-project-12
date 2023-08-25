@@ -5,7 +5,7 @@ import { showModal } from '../slices/modalsSlice';
 const AddChannelButton = () => {
   const dispatch = useDispatch();
   const onClick = () => {
-    dispatch(showModal('newChannel'));
+    dispatch(showModal({ modal: 'newChannel', data: true }));
   };
   return (
     <button type="button" className="p-0 text-primary btn btn-group-vertical" onClick={onClick}>

@@ -34,9 +34,6 @@ const channelSclice = createSlice({
       const { id, name } = payload;
       state.value[id].name = name;
     },
-    setChannelToBeChanged: (state, { payload }) => {
-      state.channelToBeChanged = payload;
-    },
   },
 });
 

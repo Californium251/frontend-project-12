@@ -16,7 +16,7 @@ const NewChannelModal = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const onHide = () => {
-    dispatch(hideModal('newChannel'));
+    dispatch(hideModal({ modal: 'newChannel' }));
   };
   const channelNames = useSelector(({ channels }) => Object
     .values(channels.value)
@@ -36,7 +36,7 @@ const NewChannelModal = () => {
         name,
         removable: true,
       }).then(() => {
-        dispatch(hideModal('newChannel'));
+        dispatch(hideModal({ modal: 'newChannel' }));
         toast.success(t('channelCreated'));
       }).catch((e) => {
         console.log(e);

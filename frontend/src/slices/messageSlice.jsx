@@ -18,15 +18,15 @@ const messageSlice = createSlice({
       state[id] = { body, username, channelId };
     },
     addMessages: (state, { payload }) => {
-      payload.reduce((res, el) => {
+      payload.forEach((el) => {
         const {
-          id, body, username, channelId,
+          id,
+          body,
+          username,
+          channelId,
         } = el;
-        res[id] = {
-          id, body, username, channelId,
-        };
-        return res;
-      }, state);
+        state[id] = { body, username, channelId };
+      });
     },
   },
 });
