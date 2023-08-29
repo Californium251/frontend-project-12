@@ -5,16 +5,16 @@ import { ToastContainer } from 'react-toastify';
 import Login from './components/Login';
 import SignUp from './components/SignUp';
 import RequireAuth from './components/RequireAuth';
-import pageAddresses from './routes/index';
+import routes from './routes/index';
 import './App.css';
 
 const App = () => {
-  const { login, signup, root } = pageAddresses;
+  const { loginPage, signupPage, root } = routes;
   return (
     <BrowserRouter>
       <Routes>
-        <Route path={login} element={<Login />} />
-        <Route path={signup} element={<SignUp />} />
+        <Route path={loginPage} element={<Login />} />
+        <Route path={signupPage} element={<SignUp />} />
         <Route path={root} element={<RequireAuth />} />
       </Routes>
       <ToastContainer />

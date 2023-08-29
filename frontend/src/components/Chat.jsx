@@ -18,7 +18,7 @@ import RemoveChannelModal from './RemoveChannelModal';
 import RenameChannelModal from './RenameChannelModal';
 import AppHeader from './AppHeader';
 import useAuth from '../hooks/useAuth';
-import pageAddresses from '../routes/index';
+import routes from '../routes/index';
 
 const Chat = () => {
   const { t } = useTranslation();
@@ -34,7 +34,8 @@ const Chat = () => {
         },
       };
       try {
-        const res = await axios.get(pageAddresses.initialData, config);
+        console.log(routes);
+        const res = await axios.get(routes.login, config);
         dispatch(channelSliceActoins.addChannels(res.data.channels));
         dispatch(channelSliceActoins.makeActive(res.data.currentChannelId));
         dispatch(addMessages(res.data.messages));

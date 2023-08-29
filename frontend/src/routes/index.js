@@ -1,6 +1,7 @@
 export default {
-  login: 'login',
-  signup: 'signup',
+  loginPage: 'login',
+  signupPage: 'signup',
   root: '/',
-  initialData: '/api/v1/data',
+  login: '/api/v1/data',
+  signup: '/api/v1/signup',
 };

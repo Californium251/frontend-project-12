@@ -11,6 +11,7 @@ import image from '../img/download.jpeg';
 import { loginValidation } from './validations';
 import AppHeader from './AppHeader';
 import useAuth from '../hooks/useAuth';
+import routes from '../routes/index';
 
 const Login = () => {
   const { t } = useTranslation();
@@ -26,7 +27,7 @@ const Login = () => {
     validationSchema: loginValidation,
     onSubmit: async (values) => {
       try {
-        const res = await axios.post('/api/v1/login', values);
+        const res = await axios.post(routes.login, values);
         login(res.data);
         setError(null);
         navigate('/');

@@ -1,7 +1,10 @@
 /* eslint-disable react/jsx-filename-extension */
 import { createSlice } from '@reduxjs/toolkit';
 
-const initialState = {};
+const initialState = {
+  type: null,
+  data: null,
+};
 
 const modalsSlice = createSlice({
   name: 'modals',

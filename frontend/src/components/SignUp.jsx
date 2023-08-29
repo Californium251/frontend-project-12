@@ -10,6 +10,7 @@ import { signupValidation } from './validations';
 import image from '../img/signup.jpeg';
 import AppHeader from './AppHeader';
 import useAuth from '../hooks/useAuth';
+import routes from '../routes/index';
 
 const SignUp = () => {
   const { t } = useTranslation();
@@ -36,7 +37,7 @@ const SignUp = () => {
     onSubmit: async (values) => {
       try {
         const { username, password } = values;
-        const res = await axios.post('/api/v1/signup', { username, password });
+        const res = await axios.post(routes.signup, { username, password });
         login(res.data);
         setError(null);
         navigate('/');
