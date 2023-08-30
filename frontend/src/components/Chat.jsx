@@ -35,7 +35,7 @@ const Chat = () => {
       };
       try {
         console.log(routes);
-        const res = await axios.get(routes.login, config);
+        const res = await axios.get(routes.data, config);
         dispatch(channelSliceActoins.addChannels(res.data.channels));
         dispatch(channelSliceActoins.makeActive(res.data.currentChannelId));
         dispatch(addMessages(res.data.messages));
