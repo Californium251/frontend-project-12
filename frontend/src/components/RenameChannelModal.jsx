@@ -6,14 +6,11 @@ import {
 import { useFormik } from 'formik';
 import 'bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router';
 import { toast } from 'react-toastify';
 import { useTranslation } from 'react-i18next';
 import { hideModal } from '../slices/modalsSlice';
 import { channelNameValidation } from './validations';
 import useApi from '../hooks/useApi';
-import routes from '../routes/index';
-import useAuth from '../hooks/useAuth';
 
 const RenameChannelModal = () => {
   const { t } = useTranslation();
@@ -31,8 +28,6 @@ const RenameChannelModal = () => {
   useEffect(() => {
     nameField.current.focus();
   }, []);
-  const navigate = useNavigate();
-  const { logout } = useAuth();
   const formik = useFormik({
     initialValues: { name: initialName },
     validationSchema: channelNameValidation(channelNames),
@@ -46,16 +41,8 @@ const RenameChannelModal = () => {
         dispatch(hideModal({ modal: 'renameChannel' }));
       }).then(() => {
         toast.success(t('channelRenamed'));
-      }).catch((err) => {
-        if (!err.isAxiosError) {
-          toast(t('UNKNOWN_ERR'));
-        } else if (err.code === 'ERR_BAD_REQUEST') {
-          toast(t('ERR_BAD_REQUEST'));
-          logout();
-          navigate(routes.loginPage);
-        } else {
-          toast(t('ERR_NETWORK'));
-        }
+      }).catch(() => {
+        toast(t('ERR_NETWORK'));
       });
     },
   });

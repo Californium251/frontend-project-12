@@ -2,13 +2,11 @@ import React, { useEffect, useRef } from 'react';
 import { useFormik } from 'formik';
 import { Form } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
-import { useNavigate } from 'react-router';
 import { toast } from 'react-toastify';
 import { useTranslation } from 'react-i18next';
 import { newMessageValidation } from './validations';
 import useAuth from '../hooks/useAuth';
 import useApi from '../hooks/useApi';
-import routes from '../routes/index';
 
 const SendMessageForm = () => {
   const channelId = useSelector((state) => state.channels.activeId);
@@ -17,10 +15,9 @@ const SendMessageForm = () => {
     messageInput.current.focus();
   }, [channelId]);
   const { t } = useTranslation();
-  const { auth, logout } = useAuth();
+  const { auth } = useAuth();
   const { username } = auth;
   const { newMessage } = useApi();
-  const navigate = useNavigate();
   const formik = useFormik({
     initialValues: { body: '' },
     validationSchema: newMessageValidation,
@@ -32,16 +29,8 @@ const SendMessageForm = () => {
       };
       newMessage(newValues).then(() => {
         resetForm();
-      }).catch((err) => {
-        if (!err.isAxiosError) {
-          toast(t('UNKNOWN_ERR'));
-        } else if (err.code === 'ERR_BAD_REQUEST') {
-          toast(t('ERR_BAD_REQUEST'));
-          logout();
-          navigate(routes.loginPage);
-        } else {
-          toast(t('ERR_NETWORK'));
-        }
+      }).catch(() => {
+        toast(t('ERR_NETWORK'));
       });
     },
   });
