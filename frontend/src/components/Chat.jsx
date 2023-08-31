@@ -5,6 +5,8 @@ import {
   Container, Row, Col,
 } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
+import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router';
 import { channelSliceActoins } from '../slices/channelSlice';
 import { addMessages } from '../slices/messageSlice';
 import 'bootstrap';
@@ -23,8 +25,9 @@ import routes from '../routes/index';
 const Chat = () => {
   const { t } = useTranslation();
   const modals = useSelector((state) => state.modals);
-  const { auth } = useAuth();
+  const { auth, logout } = useAuth();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   useEffect(() => {
     const getChats = async () => {
       const { token } = auth;
@@ -34,16 +37,19 @@ const Chat = () => {
         },
       };
       try {
-        console.log(routes);
         const res = await axios.get(routes.data, config);
         dispatch(channelSliceActoins.addChannels(res.data.channels));
         dispatch(channelSliceActoins.makeActive(res.data.currentChannelId));
         dispatch(addMessages(res.data.messages));
       } catch (err) {
         if (!err.isAxiosError) {
-          console.log('unknown error');
+          toast(t('UNKNOWN_ERR'));
+        } else if (err.code === 'ERR_BAD_REQUEST') {
+          toast(t('ERR_BAD_REQUEST'));
+          logout();
+          navigate(routes.loginPage);
         } else {
-          console.log('network error');
+          toast(t('ERR_NETWORK'));
         }
       }
     };

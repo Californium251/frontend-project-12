@@ -5,6 +5,7 @@ import {
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import useAuth from '../hooks/useAuth';
+import routes from '../routes';
 
 const AppHeader = () => {
   const { t } = useTranslation();
@@ -13,12 +14,12 @@ const AppHeader = () => {
   const { token } = auth;
   const signOut = () => {
     logout();
-    navigate('/login');
+    navigate(routes.loginPage);
   };
   return (
     <Navbar expand="lg" bg="white" className="shadow-sm">
       <Container>
-        <Navbar.Brand href="/">{t('appName')}</Navbar.Brand>
+        <Navbar.Brand href={routes.root}>{t('appName')}</Navbar.Brand>
         {token ? (
           <Button variant="primary" onClick={signOut}>{t('signout')}</Button>
         ) : null}

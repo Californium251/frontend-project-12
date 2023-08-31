@@ -6,10 +6,13 @@ import {
 import { useFormik } from 'formik';
 import 'bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router';
 import { toast } from 'react-toastify';
 import { useTranslation } from 'react-i18next';
 import { hideModal } from '../slices/modalsSlice';
 import useApi from '../hooks/useApi';
+import routes from '../routes/index';
+import useAuth from '../hooks/useAuth';
 
 const RemoveChannelModal = () => {
   const { t } = useTranslation();
@@ -19,14 +22,24 @@ const RemoveChannelModal = () => {
   };
   const { removeChannel } = useApi();
   const id = useSelector((state) => state.modals.removeChannel);
+  const navigate = useNavigate();
+  const { logout } = useAuth();
   const formik = useFormik({
     initialValues: { id },
     onSubmit: (values) => {
       removeChannel(values).then(() => {
         dispatch(hideModal({ modal: 'removeChannel' }));
         toast.success(t('channelRemoved'));
-      }).catch((e) => {
-        console.log(e);
+      }).catch((err) => {
+        if (!err.isAxiosError) {
+          toast(t('UNKNOWN_ERR'));
+        } else if (err.code === 'ERR_BAD_REQUEST') {
+          toast(t('ERR_BAD_REQUEST'));
+          logout();
+          navigate(routes.loginPage);
+        } else {
+          toast(t('ERR_NETWORK'));
+        }
       });
     },
   });
